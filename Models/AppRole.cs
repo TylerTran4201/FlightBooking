@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace FlightBooking.Areas.Identity.Data
+namespace FlightBooking.Models
 {
     public class AppRole: IdentityRole<int>
     {

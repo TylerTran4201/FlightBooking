@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "Flights";
+}
+
+<section class="">
+    <div class="">
+        <h2 class="gradient-text fw-bolder fs-1 text-center" style="">
+            It's more than, just a flight
+        </h2>
+        <form asp-controller="Flights" asp-action="SearchFlight">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <select id="countries" class="" data-live-search="true" name="departure">
+                            <option selected>
+                                From where ?
+                            </option>
+                            @foreach (var item in ViewBag.Airports)
+                            {
+                                <option value="@item.name">@item.name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select id="countries" name="destination">
+                            <option selected>
+                                Where To?
+                            </option>
+                            @foreach (var item in ViewBag.Airports)
+                            {
+                                <option value="@item.name">@item.name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="date" name="date">
+                    </div>
+                    <div class="col">
+                        <select id="countries" class="" name="quantity"> 
+                            <option value="1" selected>
+                                1 people
+                            </option>
+                            @for (var num = 2; num <= 5; num++)
+                            {
+                                <option value="@num">@num people</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button type="submit">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</section>

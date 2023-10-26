@@ -1,0 +1,92 @@
+﻿@model FlightBooking.Models.Schedule
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Schedule</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DepartureAirport" class="control-label"></label>
+                <select asp-for="DepartureAirportId" class="form-control" asp-items="ViewBag.DepartureAirport"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestinationAirport" class="control-label"></label>
+                <select asp-for="DestinationAirportId" class="form-control" asp-items="ViewBag.DestinationAirport"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlightTime" class="control-label"></label>
+                <input type="text" name="hours" id="hours" class="form-control" />
+                <input type="text" name="minutes" id="minutes" class="form-control" />
+                <span asp-validation-for="FlightTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartureTime" class="control-label"></label>
+                <input asp-for="DepartureTime" name="departureTime" id="departureTime" class="form-control"
+                    oninput="CalculateDestinationTime()" />
+                <span asp-validation-for="DepartureTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestinationTime" class="control-label"></label>
+                <input asp-for="DestinationTime" id="DestinationTime" class="form-control" placeholder="Calculating ..."/>
+                <span asp-validation-for="DestinationTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function CalculateDestinationTime() {
+        var input1Value = parseFloat(document.getElementById("hours").value);
+        var input2Value = parseFloat(document.getElementById("minutes").value);
+        var input3Value = new Date(document.getElementById("departureTime").value);
+
+
+        // Lấy các thành phần ngày, tháng, năm, giờ, phút và giây
+        var day = input3Value.getDate();
+        var month = input3Value.getMonth() + 1; // Tháng bắt đầu từ 0 nên cộng thêm 1
+        var year = input3Value.getFullYear();
+        var hours = input3Value.getHours();
+        var minutes = input3Value.getMinutes();
+        var seconds = input3Value.getSeconds();
+
+        // Tạo chuỗi với định dạng mà bạn muốn
+        var formattedDate =day + " " + month + " " + year + " " + hours + ":" + minutes + ":" + seconds;
+        if (!isNaN(input1Value) && !isNaN(input2Value) && input3Value instanceof Date && !isNaN(input3Value)) {
+            $.ajax({
+                url: 'CalculateDestinationTime',
+                method: 'POST',
+                data: { hours: input1Value, minutes: input2Value, departureTime: formattedDate },
+                success: function (data) {
+                    document.getElementById("DestinationTime").value = data.final;
+                },
+                error: function () {
+                    console.log('Some Errors');
+                }
+            });
+        }
+    }
+    document.getElementById("hours").addEventListener("input", CalculateDestinationTime);
+    document.getElementById("minutes").addEventListener("input", CalculateDestinationTime);
+    document.getElementById("departureTime").addEventListener("input", CalculateDestinationTime);
+</script>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

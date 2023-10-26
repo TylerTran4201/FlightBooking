@@ -6,11 +6,43 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FlightBooking.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AirlineCompanies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AirlineCompanies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Airports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    iata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    icao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    city = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lat = table.Column<double>(type: "float", nullable: false),
+                    lon = table.Column<double>(type: "float", nullable: false),
+                    country = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Airports", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -39,6 +71,67 @@ namespace FlightBooking.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Photos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TypeSeats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TypeSeats", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Airlines",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AirlineComanyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Airlines", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Airlines_AirlineCompanies_AirlineComanyId",
+                        column: x => x.AirlineComanyId,
+                        principalTable: "AirlineCompanies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Schedules",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DestinationAirportId = table.Column<int>(type: "int", nullable: false),
+                    DepartureAirportId = table.Column<int>(type: "int", nullable: false),
+                    FlightTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DestinationTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedules", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Schedules_Airports_DepartureAirportId",
+                        column: x => x.DepartureAirportId,
+                        principalTable: "Airports",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Schedules_Airports_DestinationAirportId",
+                        column: x => x.DestinationAirportId,
+                        principalTable: "Airports",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -100,6 +193,33 @@ namespace FlightBooking.Migrations
                         column: x => x.PhotoId,
                         principalTable: "Photos",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AirlineId = table.Column<int>(type: "int", nullable: false),
+                    TypeSeatId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Seats_Airlines_AirlineId",
+                        column: x => x.AirlineId,
+                        principalTable: "Airlines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Seats_TypeSeats_TypeSeatId",
+                        column: x => x.TypeSeatId,
+                        principalTable: "TypeSeats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -188,6 +308,11 @@ namespace FlightBooking.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Airlines_AirlineComanyId",
+                table: "Airlines",
+                column: "AirlineComanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -230,6 +355,26 @@ namespace FlightBooking.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedules_DepartureAirportId",
+                table: "Schedules",
+                column: "DepartureAirportId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedules_DestinationAirportId",
+                table: "Schedules",
+                column: "DestinationAirportId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seats_AirlineId",
+                table: "Seats",
+                column: "AirlineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seats_TypeSeatId",
+                table: "Seats",
+                column: "TypeSeatId");
         }
 
         /// <inheritdoc />
@@ -251,13 +396,31 @@ namespace FlightBooking.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Schedules");
+
+            migrationBuilder.DropTable(
+                name: "Seats");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Airports");
+
+            migrationBuilder.DropTable(
+                name: "Airlines");
+
+            migrationBuilder.DropTable(
+                name: "TypeSeats");
+
+            migrationBuilder.DropTable(
                 name: "Photos");
+
+            migrationBuilder.DropTable(
+                name: "AirlineCompanies");
         }
     }
 }

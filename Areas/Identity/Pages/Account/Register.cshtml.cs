@@ -3,12 +3,12 @@
 #nullable disable
 
 using Microsoft.AspNetCore.Authentication;
-using FlightBooking.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FlightBooking.DTOs;
 using Microsoft.EntityFrameworkCore;
+using FlightBooking.Models;
 
 namespace FlightBooking.Areas.Identity.Pages.Account
 {

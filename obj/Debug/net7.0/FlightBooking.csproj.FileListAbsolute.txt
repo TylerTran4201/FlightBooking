@@ -261,3 +261,4 @@ C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\runtimes\win
 C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\Admin\Desktop\FlightBooking\FlightBooking\obj\Debug\net7.0\FlightBooking.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Admin\Desktop\FlightBooking\flightbooking\bin\Debug\net7.0\Seed\UserSeedData.json
+C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\Seed\AirportSeedData.json

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\FlightBooking.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\Assets\\worldmap.png",
+      "PackagePath": "staticwebassets\\Assets\\worldmap.png"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -243,6 +247,14 @@
     {
       "Id": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\srcs\\bootstrap-duration-picker.css",
+      "PackagePath": "staticwebassets\\srcs\\bootstrap-duration-picker.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\srcs\\bootstrap-duration-picker.js",
+      "PackagePath": "staticwebassets\\srcs\\bootstrap-duration-picker.js"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.FlightBooking.Microsoft.AspNetCore.StaticWebAssets.props",

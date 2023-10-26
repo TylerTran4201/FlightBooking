@@ -1,0 +1,442 @@
+﻿[
+    {
+        "name": "Buon Ma Thuot Airport",
+        "iata": "BMV",
+        "icao": "VVBM",
+        "city": "Buon Ma Thuot",
+        "lat": 12.66831,
+        "lon": 108.120201,
+        "country": "Vietnam",
+        "alt": 1729,
+        "size": 12367,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Ca Mau Airport",
+        "iata": "CAH",
+        "icao": "VVCM",
+        "city": "Ca Mau",
+        "lat": 9.177667,
+        "lon": 105.17778,
+        "country": "Vietnam",
+        "alt": 6,
+        "size": 1192,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Can Tho International Airport",
+        "iata": "VCA",
+        "icao": "VVCT",
+        "city": "Can Tho",
+        "lat": 10.08,
+        "lon": 105.709999,
+        "country": "Vietnam",
+        "alt": 9,
+        "size": 28950,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Chu Lai International Airport",
+        "iata": "VCL",
+        "icao": "VVCA",
+        "city": "Chu Lai",
+        "lat": 15.4033,
+        "lon": 108.706001,
+        "country": "Vietnam",
+        "alt": 10,
+        "size": 18528,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Con Dao Airport",
+        "iata": "VCS",
+        "icao": "VVCS",
+        "city": "Con Dao",
+        "lat": 8.7325,
+        "lon": 106.628891,
+        "country": "Vietnam",
+        "alt": 20,
+        "size": 16462,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Da Lat Lien Khuong Airport",
+        "iata": "DLI",
+        "icao": "VVDL",
+        "city": "Da Lat",
+        "lat": 11.75056,
+        "lon": 108.373611,
+        "country": "Vietnam",
+        "alt": 3156,
+        "size": 31047,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Da Nang International Airport",
+        "iata": "DAD",
+        "icao": "VVDN",
+        "city": "Da Nang",
+        "lat": 16.043909,
+        "lon": 108.199303,
+        "country": "Vietnam",
+        "alt": 33,
+        "size": 274296,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Dien Bien Phu Airport",
+        "iata": "DIN",
+        "icao": "VVDB",
+        "city": "Dien Bien Phu",
+        "lat": 21.397499,
+        "lon": 103.008003,
+        "country": "Vietnam",
+        "alt": 1611,
+        "size": 3,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Dong Hoi Airport",
+        "iata": "VDH",
+        "icao": "VVDH",
+        "city": "Dong Hoi",
+        "lat": 17.514999,
+        "lon": 106.590553,
+        "country": "Vietnam",
+        "alt": 59,
+        "size": 1782,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Haiphong Cat Bi International Airport",
+        "iata": "HPH",
+        "icao": "VVCI",
+        "city": "Haiphong",
+        "lat": 20.823315,
+        "lon": 106.727325,
+        "country": "Vietnam",
+        "alt": 6,
+        "size": 38478,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Hanoi Noi Bai International Airport",
+        "iata": "HAN",
+        "icao": "VVNB",
+        "city": "Hanoi",
+        "lat": 21.221189,
+        "lon": 105.807098,
+        "country": "Vietnam",
+        "alt": 39,
+        "size": 657302,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Ho Chi Minh City International Airport",
+        "iata": "SGN",
+        "icao": "VVTS",
+        "city": "Ho Chi Minh City",
+        "lat": 10.81879,
+        "lon": 106.651802,
+        "country": "Vietnam",
+        "alt": 33,
+        "size": 927926,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Hue Phu Bai International Airport",
+        "iata": "HUI",
+        "icao": "VVPB",
+        "city": "Hue",
+        "lat": 16.401489,
+        "lon": 107.702599,
+        "country": "Vietnam",
+        "alt": 48,
+        "size": 21275,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Nha Trang Cam Ranh International Airport",
+        "iata": "CXR",
+        "icao": "VVCR",
+        "city": "Nha Trang",
+        "lat": 11.993611,
+        "lon": 109.224998,
+        "country": "Vietnam",
+        "alt": 40,
+        "size": 72092,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Phu Quoc International Airport",
+        "iata": "PQC",
+        "icao": "VVPQ",
+        "city": "Phu Quoc",
+        "lat": 10.171667,
+        "lon": 103.991112,
+        "country": "Vietnam",
+        "alt": 37,
+        "size": 82594,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Pleiku Airport",
+        "iata": "PXU",
+        "icao": "VVPK",
+        "city": "Pleiku",
+        "lat": 14.006346,
+        "lon": 108.008957,
+        "country": "Vietnam",
+        "alt": 2434,
+        "size": 8447,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Quang Ninh Van Don International Airport",
+        "iata": "VDO",
+        "icao": "VVVD",
+        "city": "Quang Ninh",
+        "lat": 21.117779,
+        "lon": 107.414169,
+        "country": "Vietnam",
+        "alt": "-1",
+        "size": 1189,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Qui Nhon Phu Cat Airport",
+        "iata": "UIH",
+        "icao": "VVPC",
+        "city": "Qui Nhon",
+        "lat": 13.955,
+        "lon": 109.042221,
+        "country": "Vietnam",
+        "alt": 79,
+        "size": 32320,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Rach Gia Airport",
+        "iata": "VKG",
+        "icao": "VVRG",
+        "city": "Rach Gia",
+        "lat": 9.958056,
+        "lon": 105.1325,
+        "country": "Vietnam",
+        "alt": 7,
+        "size": 2680,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Sao Vang Tho Xuan Airport",
+        "iata": "THD",
+        "icao": "VVTX",
+        "city": "Sao Vang",
+        "lat": 19.901667,
+        "lon": 105.467781,
+        "country": "Vietnam",
+        "alt": 73,
+        "size": 8706,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Tuy Hoa Dong Tac Airport",
+        "iata": "TBB",
+        "icao": "VVTH",
+        "city": "Tuy Hoa",
+        "lat": 13.04955,
+        "lon": 109.333702,
+        "country": "Vietnam",
+        "alt": 20,
+        "size": 9309,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    },
+    {
+        "name": "Vinh Airport",
+        "iata": "VII",
+        "icao": "VVVH",
+        "city": "Vinh",
+        "lat": 18.73,
+        "lon": 105.669998,
+        "country": "Vietnam",
+        "alt": 23,
+        "size": 25708,
+        "timezone": {
+            "name": "Asia/Ho_Chi_Minh",
+            "offset": 25200,
+            "offsetHours": "7:00",
+            "abbr": "+07",
+            "abbrName": null,
+            "isDst": false
+        },
+        "countryId": 243
+    }
+]

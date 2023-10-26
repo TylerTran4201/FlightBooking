@@ -3,6 +3,9 @@ using FlightBooking.Areas.Identity.Data;
 using FlightBooking.Extensions;
 using Microsoft.AspNetCore.Identity;
 using FlightBooking.Seed;
+using FlightBooking.Interface;
+using FlightBooking.Repository;
+using FlightBooking.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,7 @@ builder.Services.AddIdentityServices(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
@@ -41,7 +45,9 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
+    await Seed.SeedAirports(context);
     await Seed.SeedUsers(userManager, roleManager);
+    await Seed.SeedTypeSeat(context);
 }
 catch (Exception ex)
 {
@@ -51,7 +57,7 @@ catch (Exception ex)
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Flights}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 

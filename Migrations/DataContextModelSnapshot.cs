@@ -22,7 +22,79 @@ namespace FlightBooking.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FlightBooking.Areas.Identity.Data.AppRole", b =>
+            modelBuilder.Entity("FlightBooking.Models.Airline", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AirlineComanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirlineComanyId");
+
+                    b.ToTable("Airlines");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.AirlineCompany", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AirlineCompanies");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Airport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("city")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("iata")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("icao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("lat")
+                        .HasColumnType("float");
+
+                    b.Property<double>("lon")
+                        .HasColumnType("float");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Airports");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.AppRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +124,7 @@ namespace FlightBooking.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("FlightBooking.Areas.Identity.Data.AppUser", b =>
+            modelBuilder.Entity("FlightBooking.Models.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +223,7 @@ namespace FlightBooking.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("FlightBooking.Areas.Identity.Data.AppUserRole", b =>
+            modelBuilder.Entity("FlightBooking.Models.AppUserRole", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -164,6 +236,30 @@ namespace FlightBooking.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("FlightBooking.Models.Photo", b =>
@@ -186,6 +282,110 @@ namespace FlightBooking.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Photos");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Schedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DepartureAirportId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DepartureTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DestinationAirportId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DestinationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("FlightTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartureAirportId");
+
+                    b.HasIndex("DestinationAirportId");
+
+                    b.ToTable("Schedules");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Seat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AirlineId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeSeatId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirlineId");
+
+                    b.HasIndex("TypeSeatId");
+
+                    b.ToTable("Seats");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("SeatId")
+                        .IsUnique();
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.TypeSeat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeSeats");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -276,7 +476,18 @@ namespace FlightBooking.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FlightBooking.Areas.Identity.Data.AppUser", b =>
+            modelBuilder.Entity("FlightBooking.Models.Airline", b =>
+                {
+                    b.HasOne("FlightBooking.Models.AirlineCompany", "AirlineCompany")
+                        .WithMany("Airlines")
+                        .HasForeignKey("AirlineComanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AirlineCompany");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.AppUser", b =>
                 {
                     b.HasOne("FlightBooking.Models.Photo", "Photo")
                         .WithMany()
@@ -285,15 +496,15 @@ namespace FlightBooking.Migrations
                     b.Navigation("Photo");
                 });
 
-            modelBuilder.Entity("FlightBooking.Areas.Identity.Data.AppUserRole", b =>
+            modelBuilder.Entity("FlightBooking.Models.AppUserRole", b =>
                 {
-                    b.HasOne("FlightBooking.Areas.Identity.Data.AppRole", "Role")
+                    b.HasOne("FlightBooking.Models.AppRole", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FlightBooking.Areas.Identity.Data.AppUser", "User")
+                    b.HasOne("FlightBooking.Models.AppUser", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -304,9 +515,77 @@ namespace FlightBooking.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FlightBooking.Models.Booking", b =>
+                {
+                    b.HasOne("FlightBooking.Models.Schedule", "Schedule")
+                        .WithMany()
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Schedule");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Schedule", b =>
+                {
+                    b.HasOne("FlightBooking.Models.Airport", "DepartureAirport")
+                        .WithMany("DepartureSchedules")
+                        .HasForeignKey("DepartureAirportId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FlightBooking.Models.Airport", "DestinationAirport")
+                        .WithMany("DestinationSchedules")
+                        .HasForeignKey("DestinationAirportId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("DepartureAirport");
+
+                    b.Navigation("DestinationAirport");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Seat", b =>
+                {
+                    b.HasOne("FlightBooking.Models.Airline", "Airline")
+                        .WithMany("Seats")
+                        .HasForeignKey("AirlineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlightBooking.Models.TypeSeat", "TypeSeat")
+                        .WithMany("Seats")
+                        .HasForeignKey("TypeSeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Airline");
+
+                    b.Navigation("TypeSeat");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Ticket", b =>
+                {
+                    b.HasOne("FlightBooking.Models.Booking", "Booking")
+                        .WithMany("Tickets")
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlightBooking.Models.Seat", "Seat")
+                        .WithOne()
+                        .HasForeignKey("FlightBooking.Models.Ticket", "SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
+
+                    b.Navigation("Seat");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("FlightBooking.Areas.Identity.Data.AppRole", null)
+                    b.HasOne("FlightBooking.Models.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -315,7 +594,7 @@ namespace FlightBooking.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("FlightBooking.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("FlightBooking.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -324,7 +603,7 @@ namespace FlightBooking.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("FlightBooking.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("FlightBooking.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -333,21 +612,48 @@ namespace FlightBooking.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("FlightBooking.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("FlightBooking.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FlightBooking.Areas.Identity.Data.AppRole", b =>
+            modelBuilder.Entity("FlightBooking.Models.Airline", b =>
+                {
+                    b.Navigation("Seats");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.AirlineCompany", b =>
+                {
+                    b.Navigation("Airlines");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Airport", b =>
+                {
+                    b.Navigation("DepartureSchedules");
+
+                    b.Navigation("DestinationSchedules");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.AppRole", b =>
                 {
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("FlightBooking.Areas.Identity.Data.AppUser", b =>
+            modelBuilder.Entity("FlightBooking.Models.AppUser", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.Booking", b =>
+                {
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("FlightBooking.Models.TypeSeat", b =>
+                {
+                    b.Navigation("Seats");
                 });
 #pragma warning restore 612, 618
         }

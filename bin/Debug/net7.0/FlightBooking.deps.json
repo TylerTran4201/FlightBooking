@@ -12,7 +12,8 @@
           "Microsoft.AspNetCore.Identity.UI": "7.0.12",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.12",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.12",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.9"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.9",
+          "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
           "FlightBooking.dll": {}

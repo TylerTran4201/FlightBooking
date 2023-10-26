@@ -1,4 +1,5 @@
 ﻿using FlightBooking.Areas.Identity.Data;
+using FlightBooking.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace FlightBooking.Extensions
