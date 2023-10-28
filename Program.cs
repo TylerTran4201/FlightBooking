@@ -55,9 +55,16 @@ catch (Exception ex)
     logger.LogError(ex, "An error occureed during migration");
 }
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Flights}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>{
+    endpoints.MapControllerRoute(
+        name: "Admin",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Flights}/{action=Index}/{id?}");   
+});
+
 
 app.MapRazorPages();
 

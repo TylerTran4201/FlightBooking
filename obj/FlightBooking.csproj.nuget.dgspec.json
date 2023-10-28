@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj": {}
+    "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj": {
+    "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj",
         "projectName": "FlightBooking",
-        "projectPath": "c:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj",
+        "projectPath": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

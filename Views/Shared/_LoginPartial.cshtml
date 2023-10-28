@@ -6,25 +6,34 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="nav-item">
-        <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="nav-link gray-200">
+    <li>
+        <a is-active-route="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600"
+            id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"
+            class="text-gray-800 hover:text-indigo-700 block py-2 pl-3 pr-4 rounded">
             Hello @UserManager.GetUserName(User)!</a>
-    </div>
-    <div class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
-            asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link gray-200">Logout</button>
+    </li>
+    <li>
+        <form is-active-route="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600"
+            id="logoutForm" asp-area="Identity" asp-page="/Account/Logout"
+            asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="form-inline">
+            <button
+                is-active-route="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600"
+                id="logout" type="submit" class="text-gray-800 hover:text-indigo-700 block py-2 pl-3 pr-4 rounded"></button>
         </form>
-    </div>
+    </li>
 }
 else
 {
-    <div class="nav-item">
-        <a id="login" asp-area="Identity" asp-page="/account/Login" class="nav-link gray-200">
+    <li>
+        <a is-active-route="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600"
+            id="login" asp-area="Identity" asp-page="/account/Login"
+            class="text-gray-800 hover:text-indigo-700 block py-2 pl-3 pr-4 rounded">
             Sign in</a>
-    </div>
-    <div class="nav-item">
-        <a id="register" asp-area="Identity" asp-page="/Account/Register" class="nav-link gray-200">
+    </li>
+    <li>
+        <a is-active-route="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600"
+            id="register" asp-area="Identity" asp-page="/Account/Register"
+            class="text-gray-800 hover:text-indigo-700 block py-2 pl-3 pr-4 rounded">
             Sign up</a>
-    </div>
+    </li>
 }

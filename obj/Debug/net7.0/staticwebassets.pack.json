@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

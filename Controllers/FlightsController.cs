@@ -13,6 +13,7 @@ namespace FlightBooking.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            ViewBag.LinkActive = true;
             ViewBag.Airports = await _unitOfWork.airportRepository.GetAirports();
             return View();
         }

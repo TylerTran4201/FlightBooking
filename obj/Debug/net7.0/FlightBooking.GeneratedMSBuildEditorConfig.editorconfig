@@ -16,6 +16,22 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Admin\Desktop\FlightBooking\FlightBooking
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Areas/Admin/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Areas/Admin/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Areas/Admin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Areas/Admin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,10 +80,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Views/Admin/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Views/AirlineCompanies/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWlybGluZUNvbXBhbmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -110,6 +122,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Views/Flights/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmxpZ2h0c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Views/Packages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFja2FnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/FlightBooking/FlightBooking/Views/Schedules/Create.cshtml]
