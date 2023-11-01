@@ -11,6 +11,10 @@ namespace FlightBooking.Models
         public DateTime DepartureTime { get; set; }
         public DateTime DestinationTime { get; set; }
 
+        public int AirlineId { get; set; }
+
+        public Airline Airline { get; set; }
+
         [Display(Name = "Destination Airport")]
         public Airport DestinationAirport { get; set; } = null;
 

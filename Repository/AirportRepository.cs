@@ -1,4 +1,4 @@
-using FlightBooking.Areas.Identity.Data;
+using FlightBooking.Data;
 using FlightBooking.Interface;
 using FlightBooking.Models;
 using Microsoft.EntityFrameworkCore;

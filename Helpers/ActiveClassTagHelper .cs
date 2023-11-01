@@ -16,9 +16,6 @@ namespace FlightBooking.Helpers
         {
         }
 
-        [ViewContext]
-        [HtmlAttributeNotBound]
-        public ViewContext ViewContext { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var routeData = ViewContext.RouteData.Values;

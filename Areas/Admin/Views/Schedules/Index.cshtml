@@ -1,0 +1,74 @@
+﻿@model IEnumerable<FlightBooking.Models.Schedule>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Schedules" asp-action="Index" method="get">
+    <p>
+        <select name="searchOption">
+            <option value="AirlineName">Airline Name</option>
+            <option value="DepartureName">Departure Name</option>
+            <option value="DestinationName">Destination Name</option>
+        </select>
+        Name: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-indigo-100 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AirlineNameSort"]">@Html.DisplayNameFor(model => model.Airline.Name)</a>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Departure - Destination
+                </th>
+                <th scope="col" class="px-6 py-3">
+                     <a asp-action="Index" asp-route-sortOrder="@ViewData["FlightTimeSort"]">@Html.DisplayNameFor(model => model.FlightTime)</a>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Time (Utc)
+                </th>
+                <th scope="col" class="px-6 py-3">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ToList())
+            {
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4">
+                        @item.Airline.Name
+                    </td>
+                    <td class="px-6 py-4">
+                        @(item.DepartureAirport.name + " - " + item.DestinationAirport.name)
+                    </td>
+                    <td class="px-6 py-4">
+                        @item.FlightTime
+                    </td>
+                    <td class="px-6 py-4">
+                        @(item.DepartureTime + " - " + item.DestinationTime)
+                    </td>
+                    <td class="px-6 py-4">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<partial name="_PagedList" />

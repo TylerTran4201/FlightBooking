@@ -8,6 +8,7 @@ namespace FlightBooking.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Display(Name = "Seat")]
         public string Name { get; set; }
         public int AirlineId { get; set; }
         public int TypeSeatId { get; set; }

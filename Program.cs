@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using FlightBooking.Areas.Identity.Data;
+using FlightBooking.Data;
 using FlightBooking.Extensions;
 using Microsoft.AspNetCore.Identity;
 using FlightBooking.Seed;
@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DataContextConnection' not found.");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
-
+//add serviceExtention
 builder.Services.AddIdentityServices(builder.Configuration);
 
 // Add services to the container.
@@ -34,6 +34,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 //seedData

@@ -1,1 +1,13 @@
-<h1>Hello</h1>
+@using Microsoft.AspNetCore.Identity
+@using FlightBooking.Data
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User)){
+   <p> Hello @UserManager.GetUserName(User)!</p>
+}
+else{
+    <p>Hello</p>
+}

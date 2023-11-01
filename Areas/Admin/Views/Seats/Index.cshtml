@@ -1,0 +1,78 @@
+﻿@model IEnumerable<FlightBooking.Models.Airline>
+
+@{
+  ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<form asp-controller="Seats" asp-action="Index" method="get">
+    <p>
+        <p>Airline Name: </p>      
+        <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-indigo-100 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">
+          <a asp-action="Index" asp-route-sortOrder="@ViewData["AirlineNameSort"]">@Html.DisplayNameFor(model => model.Name)</a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in Model.ToList())
+      {
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <td class="px-6 py-4">
+            @item.Name
+            <button class="show-seats text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-green-300 font-normal rounded-full px-1 py-1 text-center">Seats</button>
+          </td>
+        </tr>
+        <tr class="hidden">
+         @{var seats = item.Seats.ToArray(); }
+          <td class="py-3 px-4">
+            <div class="flex justify-center">
+              <table class="w-1/2 text-sm text-left text-gray-500 dark:text-gray-400">
+                    <tbody>
+                        @for(int i = 0; i< seats.Length; i+=3){
+                          <tr>
+                            @for( int j = i; j < i + 3; j++){
+                                <td>
+                                    @if (seats[j].TypeSeat.Id == 1)
+                                    {
+                                        <a asp-action="Details" asp-route-id="@seats[j].Id" type="button" class="text-white bg-green-500  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                                            @seats[j].Name
+                                        </a>
+                                    }else{
+                                        <a asp-action="Details" asp-route-id="@seats[j].Id" type="button" class="text-white bg-indigo-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                                            @seats[j].Name
+                                        </a>
+                                    }
+                                </td>
+                            }    
+                          </tr>                      
+                        }                      
+                    </tbody>          
+              </table>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<partial name="_PagedList" />
+<script>
+    const expandButtons = document.querySelectorAll('button.show-seats');
+
+    expandButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const row = button.parentElement.parentElement.nextElementSibling;
+        row.classList.toggle('hidden');
+      });
+    });
+</script>

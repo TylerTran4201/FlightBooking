@@ -264,3 +264,6 @@ C:\Users\Admin\Desktop\FlightBooking\flightbooking\bin\Debug\net7.0\Seed\UserSee
 C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\Seed\AirportSeedData.json
 C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\package-lock.json
 C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\package.json
+C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\JetBrains.Annotations.dll
+C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\X.PagedList.dll
+C:\Users\Admin\Desktop\FlightBooking\FlightBooking\bin\Debug\net7.0\X.PagedList.Mvc.Core.dll

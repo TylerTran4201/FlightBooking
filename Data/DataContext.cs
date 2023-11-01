@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FlightBooking.Areas.Identity.Data;
+namespace FlightBooking.Data;
 
 public class DataContext : IdentityDbContext<AppUser, AppRole, int,
         IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
@@ -14,8 +14,8 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
         : base(options)
     {
     }
-    public DbSet<AirlineCompany> AirlineCompanies {get; set;}
-    public DbSet<Airline> Airlines {get; set;}
+    public DbSet<AirlineCompany> AirlineCompanies { get; set; }
+    public DbSet<Airline> Airlines { get; set; }
     public DbSet<Seat> Seats { get; set; }
     public DbSet<TypeSeat> TypeSeats { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
@@ -73,20 +73,28 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
              .HasForeignKey(e => e.DestinationAirportId)
              .OnDelete(DeleteBehavior.NoAction);
 
-        // Ticket - Chair (one to one)
+        // Ticket - Seat (one to one)
         builder.Entity<Ticket>()
             .HasOne(e=> e.Seat)
             .WithOne()
             .HasForeignKey<Ticket>(e=> e.SeatId)
-            .IsRequired();
-        builder.ApplyConfiguration(new AppUserConfig());
+            .OnDelete(DeleteBehavior.NoAction);
 
         //Booking - Ticket (one to many)
         builder.Entity<Booking>()
             .HasMany(e=> e.Tickets)
             .WithOne(e=> e.Booking)
             .HasForeignKey(e=> e.BookingId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // Airline - Schedule (one to one)
+        builder.Entity<Airline>()
+            .HasOne(e=> e.Schedule)
+            .WithOne(e=> e.Airline)
+            .HasForeignKey<Schedule>(e => e.AirlineId)
             .IsRequired();
+
+        builder.ApplyConfiguration(new AppUserConfig());
     }
 }
 
