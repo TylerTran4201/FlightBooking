@@ -5,7 +5,7 @@ using FlightBooking.Models;
 using FlightBooking.Helpers;
 
 namespace FlightBooking.Areas.Admin.Controllers
-{
+{ 
     [Area("Admin")]
     public class AirlineCompaniesController : Controller
     {

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9s/QWShg3e4P5OEJMiBepOUfghh0tSjVbvFJU9nDjPA=",
+  "Hash": "3zHZkIVZNW4zRylXYxk0GK+NNFiHTStz0Mmosza0YME=",
   "Source": "FlightBooking",
   "BasePath": "_content/FlightBooking",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FlightBooking.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\Assets\\homeBackground.jpg",
+      "SourceId": "FlightBooking",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\",
+      "BasePath": "_content/FlightBooking",
+      "RelativePath": "Assets/homeBackground.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\homeBackground.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\Assets\\worldmap.png",

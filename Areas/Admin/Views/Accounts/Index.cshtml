@@ -24,9 +24,8 @@
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-indigo-100 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["FullNameSort"]">@Html.DisplayNameFor(model => model.Id)</a>
-                    
+                <th scope="col" class="px-2 py-3">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["FullNameSort"]">@Html.DisplayNameFor(model => model.Id)</a>  
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["FullNameSort"]">FullName</a>
@@ -54,14 +53,14 @@
             @foreach (var item in Model.ToList())
             {
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <td class="px-6 py-4">
+                    <td class="px-2 py-4">
                         @item.Id
                     </td>
                     <td class="px-6 py-4">
                         @(item.FirstName + " " + @item.LastName)
                         
                     </td>
-                    <td scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <td class="px-6 py-4">
                         @item.UserName
                     </td>
                     <td class="px-6 py-4">
@@ -73,7 +72,8 @@
                     <td class="px-6 py-4">
                         @(item.City + "/ " + @item.Country)
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-7 py-4">
+                        <a asp-action="SetRoles" asp-route-id="@item.Id">Set Roles</a> |
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -83,10 +83,4 @@
         </tbody>
     </table>
 </div>
-
-
-@* <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-<a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
-
 <partial name="_PagedList"></partial>

@@ -11,174 +11,23 @@
    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
    <link rel="stylesheet" href="~/FlightBooking.styles.css" asp-append-version="true" />
    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css" rel="stylesheet" />
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
-   <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" /> 
+   <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </head>
 
-<body>
-   <button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar"
-      aria-controls="sidebar-multi-level-sidebar" type="button"
-      class="inline-flex items-center p-2 mt-2 ml-3 text-gray-900 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-      <span class="sr-only">Open sidebar</span>
-      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-      </svg>
-   </button>
+<body class="bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600">
+   
 
-   <aside id="sidebar-multi-level-sidebar"
-      class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-      aria-label="Sidebar">
-      <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-         <ul class="space-y-2 font-medium">
-            <li>
-               <a asp-controller="Home" asp-action="Index" asp-area="Admin"
-                  class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <span class="material-symbols-outlined text-gray-700"> pie_chart </span>
-                  <span class="ml-3 text-gray-600">Dashboard</span>
-               </a>
-            </li>
-            <li>
-               <button type="button"
-                  class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="group-users" data-collapse-toggle="group-users">
-                  <span class="material-symbols-outlined text-gray-700"> person </span>
-                  <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-700">Accounts</span>
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 10 6">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 4 4 4-4" />
-                  </svg>
-               </button>
-               <ul id="group-users" class="hidden py-2 space-y-2">
-                  <li>
-                     <a asp-controller="Accounts" asp-action="Index" asp-area="Admin"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined mr-2 text-gray-700"> account_circle </span> Users</a>
-                  </li>
-                  <li>
-                     <a asp-controller="Roles" asp-action="Index" asp-area="Admin"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined mr-2 text-gray-700"> verified_user </span> Role</a>
-                  </li>
-                  <li>
-                     <a href="#"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined mr-2 text-gray-700"> admin_panel_settings </span> Set
-                        Role User</a>
-                  </li>
-               </ul>
-            </li>
-            <li>
-               <button type="button"
-                  class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="group-airlines" data-collapse-toggle="group-airlines">
-                  <span class="material-symbols-outlined text-gray-700"> flight </span>
-                  <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-700">Airlines</span>
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 10 6">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 4 4 4-4" />
-                  </svg>
-               </button>
-               <ul id="group-airlines" class="hidden py-2 space-y-2">
-                  <li>
-
-                     <a asp-controller="AirlineCompanies" asp-action="Index" asp-area="Admin"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined mr-2 text-gray-700"> airlines </span> Companies</a>
-                  </li>
-                  <li>
-                     <a asp-controller="Airlines" asp-action="Index" asp-area="Admin"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined mr-5 text-gray-700"> flight </span> Airlines</a>
-                  </li>
-                  <li>
-                     <a asp-controller="Seats" asp-action="Index" asp-area="Admin"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined mr-2 text-gray-700"> airline_seat_recline_extra </span>
-                        Seats</a>
-                  </li>
-                  <li>
-                     <a asp-controller="TypeSeats" asp-action="Index" asp-area="Admin"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined mr-2 text-gray-700"> flight_class </span> TypeSeats</a>
-                  </li>
-               </ul>
-            </li>
-            <li>
-               <button type="button"
-                  class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="group-flights" data-collapse-toggle="group-flights">
-                  <span class="material-symbols-outlined"> flightsmode </span>
-                  
-                  <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-700">Flights</span>
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 10 6">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 4 4 4-4" />
-                  </svg>
-               </button>
-               <ul id="group-flights" class="hidden py-2 space-y-2">
-                  <li>
-                     <a asp-controller="Schedules" asp-action="Index" asp-area="Admin"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined mr-2 text-gray-700"> event_note </span> Schedules</a>
-                  </li>
-                  <li>
-                     <a asp-controller="Airports" asp-action="Index" asp-area="Admin"
-                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        <span class="material-symbols-outlined text-gray-700"> connecting_airports </span> Airports</a>
-                  </li>
-               </ul>
-            </li>
-            <li>
-               <a href="#"
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <span class="material-symbols-outlined text-gray-700"> chat </span>
-                  <span class="flex-1 ml-3 whitespace-nowrap text-gray-700">Messages</span>
-                  <span
-                     class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-               </a>
-            </li>
-            <li>
-               <a href="/"
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <span class="material-symbols-outlined"> home </span>
-                  <span class="flex-1 ml-3 whitespace-nowrap text-gray-700">Home</span>
-               </a>
-            </li>
-            <li>
-               <a id="login" asp-area="Identity" asp-page="/account/Login"
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <span class="material-symbols-outlined text-gray-700"> login </span>
-                  <span class="flex-1 ml-3 whitespace-nowrap text-gray-700">Sign In</span>
-               </a>
-            </li>
-            <li>
-               <form is-active-route="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600"
-                     id="logoutForm" asp-area="Identity" asp-page="/Account/Logout"
-                     asp-route-returnUrl="@Url.Action("Index", "", new { area = "" })" class="form-inline">
-                     <button
-                        is-active-route="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600"
-                        id="logout" type="submit" class="text-gray-800 hover:text-indigo-700 block py-2 pl-3 pr-4 rounded">Logout</button>
-               </form>               
-            </li>
-
-         </ul>
-      </div>
-   </aside>
-
-
-   <div class="p-4 sm:ml-64">
+   <div class="p-4 sm:ml-64 overflow-y-auto">
       <main role="main" class="p-4 border-gray-200 dark:border-gray-700">
          @RenderBody()
       </main>
    </div>
+   <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
    <script src="~/lib/jquery/dist/jquery.min.js"></script>
    <script src="~/js/site.js" asp-append-version="true"></script>
    @await RenderSectionAsync("Scripts", required: false)
 </body>
-
 </html>

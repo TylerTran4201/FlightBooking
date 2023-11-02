@@ -36,6 +36,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+// app.UseStatusCodePagesWithRedirects("/Errors/PageNotFound");
 
 //seedData
 using var scope = app.Services.CreateScope();
@@ -46,9 +47,7 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
-    await Seed.SeedAirports(context);
-    await Seed.SeedUsers(userManager, roleManager);
-    await Seed.SeedTypeSeat(context);
+    await Seed.SeedData(userManager, roleManager, context);
 }
 catch (Exception ex)
 {

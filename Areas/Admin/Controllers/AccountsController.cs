@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using FlightBooking.Models;
 using FlightBooking.Helpers;
 using FlightBooking.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace FlightBooking.Areas.Admin.Controllers
 {
@@ -10,20 +11,24 @@ namespace FlightBooking.Areas.Admin.Controllers
     public class AccountsController : Controller
     {
         private readonly DataContext _context;
+        public readonly RoleManager<AppRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public AccountsController(DataContext context)
+        public AccountsController(DataContext context, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
+            _userManager = userManager;
+            _roleManager = roleManager;
             _context = context;
         }
 
         // GET: Accounts
         public async Task<IActionResult> Index(string searchString, int? page, string sortOrder, string searchOption)
         {
-            ViewData["IdSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "Id_desc") ? "Id_desc": "Id_asc";
-            ViewData["FullNameSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "FullName_desc") ? "FullName_desc": "FullName_asc";
-            ViewData["UserNameSort"] = String.IsNullOrEmpty(sortOrder)|| !String.Equals(sortOrder, "UserName_desc") ? "UserName_desc": "UserName_asc";
-            ViewData["GenderSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "Gender_desc") ? "Gender_desc": "Gender_asc";
-            ViewData["CreatedSort"] = String.Equals(sortOrder, "Date") || !String.Equals(sortOrder, "Created_desc") ? "Created_desc": "Created_asc";
+            ViewData["IdSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "Id_desc") ? "Id_desc" : "Id_asc";
+            ViewData["FullNameSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "FullName_desc") ? "FullName_desc" : "FullName_asc";
+            ViewData["UserNameSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "UserName_desc") ? "UserName_desc" : "UserName_asc";
+            ViewData["GenderSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "Gender_desc") ? "Gender_desc" : "Gender_asc";
+            ViewData["CreatedSort"] = String.Equals(sortOrder, "Date") || !String.Equals(sortOrder, "Created_desc") ? "Created_desc" : "Created_asc";
 
             if (_context.Users == null)
                 return Problem("Entity set Users is null.");
@@ -33,13 +38,15 @@ namespace FlightBooking.Areas.Admin.Controllers
 
             users = await Sorting(users, sortOrder);
 
-            var pagedList =  new PagedList(page ?? 1, users.Count(), 6);
+            var pagedList = new PagedList(page ?? 1, users.Count(), 6);
             ViewBag.PagedList = pagedList;
 
             return View(await users.Skip(pagedList.Start).Take(pagedList.Limit).ToListAsync());
         }
-        public async Task<IQueryable<AppUser>> Sorting(IQueryable<AppUser> users,string sortOrder){
-            switch(sortOrder){
+        public async Task<IQueryable<AppUser>> Sorting(IQueryable<AppUser> users, string sortOrder)
+        {
+            switch (sortOrder)
+            {
                 case "Id_desc": users = users.OrderByDescending(a => a.Id); break;
                 case "Id_asc": users = users.OrderBy(a => a.Id); break;
                 case "FullName_desc": users = users.OrderByDescending(a => a.LastName); break;
@@ -53,16 +60,92 @@ namespace FlightBooking.Areas.Admin.Controllers
             }
             return users;
         }
-        public async Task<IQueryable<AppUser>> Searching(IQueryable<AppUser> airports, string searchString, string searchOption){
-            if (!String.IsNullOrEmpty(searchString)){
+        public async Task<IQueryable<AppUser>> Searching(IQueryable<AppUser> airports, string searchString, string searchOption)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
                 searchString.Replace('+', ' ');
-                switch(searchOption){
-                    case "FullName": airports = airports.Where(a => (a.FirstName + " "+ a.LastName)!.Contains(searchString)); break;
+                switch (searchOption)
+                {
+                    case "FullName": airports = airports.Where(a => (a.FirstName + " " + a.LastName)!.Contains(searchString)); break;
                     case "UserName": airports = airports.Where(a => a.UserName!.Contains(searchString)); break;
                 }
             }
             return airports;
-        }                
+        }
+        public async Task<IActionResult> SetRoles(int? id)
+        {
+            if (id == null || _context.Users == null)
+                return NotFound();
+
+            var user = await _context.Users.Include(a => a.UserRoles).ThenInclude(s =>s.Role).FirstOrDefaultAsync();
+            ViewBag.User = user.UserName;
+
+            var roles = _roleManager.Roles;
+            if (roles == null)
+                return NotFound();
+
+            ViewBag.Roles = roles;
+            ViewBag.CurrentRoles = GetCurrentRoles(user);
+            return View();
+        }
+
+        public List<AppRole> GetCurrentRoles(AppUser user)
+        {
+            var rolesSelect = new List<AppRole>();
+            foreach (var item in user.UserRoles)
+            {
+                rolesSelect.Add(item.Role);
+            }
+            return rolesSelect;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SetRoles(int id, List<int> selectedRolesId)
+        {
+            if (id == null || _context.Users == null)
+            {
+                return NotFound();
+            }
+            var users = from a in _context.Users select a;
+            var user = _context.Users.Find(id);
+            if(selectedRolesId == null){
+                await RemoveAllRolesAsync(user);
+                return RedirectToAction(nameof(Index));
+            }
+
+            var roles = _context.Roles;
+
+            await RemoveAllRolesAsync(user);
+            List<string> rolesNeedToAdd = new List<string>();
+            AppRole role = null;
+            foreach (var item in selectedRolesId)
+            {
+                role = roles.Find(item);
+                if (role != null)
+                {
+                    rolesNeedToAdd.Add(role.Name);
+                }
+            }
+            await _userManager.AddToRolesAsync(user, rolesNeedToAdd);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task RemoveAllRolesAsync(AppUser user)
+        {
+            if (user != null)
+            {
+                // Get the list of roles the user is currently in
+                var roles = await _userManager.GetRolesAsync(user);
+
+                // Remove the user from each role
+                foreach (var role in roles)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role);
+                }
+            }
+        }
 
         // GET: Accounts/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using FlightBooking.Data;
 using FlightBooking.Models;
 using FlightBooking.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlightBooking.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SchedulesView")]
     public class SchedulesController : Controller
     {
         private readonly DataContext _context;
@@ -18,6 +20,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Schedules
+
         public async Task<IActionResult> Index(int? page, string searchString, string sortOrder, string searchOption)
         {
             ViewData["AirlineNameSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "AirlineName_desc") ? "AirlineName_desc": "AirlineName_asc";
@@ -137,8 +140,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             ViewData["DepartureAirport"] = new SelectList(_context.Airports, "Id", "name", schedule.DepartureAirport);
             return View(schedule);
         }
-
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,DestinationAirportId,DepartureAirportId,DepartureTime,DestinationTime, AirlineId")] Schedule schedule, int hours, int minutes)
