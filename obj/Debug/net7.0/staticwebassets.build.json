@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3zHZkIVZNW4zRylXYxk0GK+NNFiHTStz0Mmosza0YME=",
+  "Hash": "8fNB0RlG9bMtRJ8REVKKuOyJBY6VRxPWo2zBotoLsjU=",
   "Source": "FlightBooking",
   "BasePath": "_content/FlightBooking",
   "Mode": "Default",
@@ -1071,12 +1071,12 @@
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FlightBooking.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\Assets\\homeBackground.jpg",
+      "Identity": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\Assets\\curved6.jpg",
       "SourceId": "FlightBooking",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\",
       "BasePath": "_content/FlightBooking",
-      "RelativePath": "Assets/homeBackground.jpg",
+      "RelativePath": "Assets/curved6.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1085,7 +1085,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Assets\\homeBackground.jpg"
+      "OriginalItemSpec": "wwwroot\\Assets\\curved6.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\wwwroot\\Assets\\worldmap.png",

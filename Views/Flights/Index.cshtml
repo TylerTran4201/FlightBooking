@@ -2,11 +2,8 @@
     ViewData["Title"] = "Flights";
 }
 
-<div class="mx-auto w-full px-6 lg:px-8 bg-cover bg-center bg-no-repeat" style="background-image: url('~/Assets/worldmap.png');">
-    hello
-</div>
-<div class="mx-auto w-full px-6 lg:px-8 bg-cover bg-center bg-no-repeat bg-[url('~/Assets/worldmap.png')]">
-    <div class="mx-auto w-2/3 lg:text-center">
+<div class="mx-auto w-full px-6 lg:px-8 py-40">
+    <div class="mx-auto w-2/3 lg:text-center bg-cover bg-center bg-no-repeat" style="background-image: url('/Assets/worldmap.png');">
         <h2 class="text-2xl leading-7 font-semibold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600"> It's more than, just a flight booking</h2>
         <p class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Everything about booking tickets is here
         <form asp-controller="Flights" asp-action="SearchFlight">
@@ -66,6 +63,3 @@
         </form>
     </div>
 </div>
-
-@* datepicker *@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/datepicker.min.js"></script>

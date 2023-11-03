@@ -25,7 +25,9 @@
     <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="wwwroot\srcs\" />
+    <Folder Include="wwwroot\Assets\" />
   </ItemGroup>
+
   <ItemGroup>
     <UpToDateCheckBuilt Include="wwwroot/css/site.css" Set="Css" />
     <UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
