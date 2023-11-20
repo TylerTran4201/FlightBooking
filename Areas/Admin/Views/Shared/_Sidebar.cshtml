@@ -1,0 +1,62 @@
+<!-- Items -->
+<div class="p-4 space-y-4">
+    <a  class="font-bold font-xl px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group hover:bg-teal-400/70"
+        asp-controller="Home" asp-area="Admin">
+        <span>Dashboard</span>
+    </a>
+    <hr>
+    @* main *@
+    <a  class="font-bold font-xl px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
+        <span>Users</span>
+    </a>
+    @* child *@
+    <a  class="font-semibold font-lg px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group hover:bg-teal-400/70"
+        asp-controller="Accounts" asp-area="Admin" asp-action="Index">
+        <span class="material-symbols-outlined"> person </span>
+        <span>Accounts</span>
+    </a>
+    <a  class="font-semibold font-lg px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group hover:bg-teal-400/70"
+        asp-controller="Roles" asp-area="Admin" asp-action="Index">
+        <span class="material-symbols-outlined"> admin_panel_settings </span>
+        <span>Roles</span>
+    </a>
+    <hr>
+    @* main *@
+    <a  class="font-bold font-xl px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group"
+        asp-controller="Flights" asp-area="Admin" asp-action="Index">
+        <span>Flights</span>
+    </a>
+    @* child *@
+    <a  class="font-semibold font-lg px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group hover:bg-teal-400/70"
+        asp-controller="AirlineCompanies" asp-area="Admin" asp-action="Index">
+        <span class="material-symbols-outlined"> airlines </span>
+        <span>Airline Companies</span>
+    </a>
+    <a  class="font-semibold font-lg px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group hover:bg-teal-400/70"
+        asp-controller="Airlines" asp-area="Admin" asp-action="Index">
+        <span class="material-symbols-outlined"> flight </span>
+        <span>Airlines</span>
+    </a>  
+    <a  class="font-semibold font-lg px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group hover:bg-teal-400/70"
+        asp-controller="Seats" asp-area="Admin" asp-action="Index">
+        <span class="material-symbols-outlined"> airline_seat_recline_normal </span>
+        <span>Seats</span>
+    </a>
+    <hr>
+    @* main *@
+    <a  class="font-bold font-xl px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
+        <span>Schedules</span>
+    </a>
+    @* child *@
+    <a  class="font-semibold font-lg px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group hover:bg-teal-400/70"
+        asp-controller="Schedules" asp-area="Admin" asp-action="Index">
+        <span class="material-symbols-outlined"> edit_calendar </span>
+        <span>Schedules</span>
+    </a>
+    <a  class="font-semibold font-lg px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group hover:bg-teal-400/70"
+        asp-controller="Airports" asp-area="Admin" asp-action="Index">
+        <span class="material-symbols-outlined"> connecting_airports </span>
+        <span>Airports</span>
+    </a> 
+    <hr>
+</div>

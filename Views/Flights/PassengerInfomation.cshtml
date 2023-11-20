@@ -1,0 +1,61 @@
+<div class="w-full px-6 lg:px-8">
+    <div class="mx-auto w-2/3 lg:text-center">
+    <div class="grid grid-cols-4 gap-4">
+        <div class="col-span-2 p-2">
+           <form asp-controller="Flights" asp-action="PassengerInfomation" method="post">
+                @for(int i = 0; i< ViewBag.NumOfTickets; i++){
+                    <div class="w-full">
+                        <p>Passenger @(i+1)</p>
+                        <div class="relative mb-3" data-te-input-wrapper-init>
+                            <input
+                                name="passengerDto[@i].FullName"
+                                type="text"
+                                class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                                id="exampleFormControlInput1"
+                                placeholder="Fullname passenger @i"/>
+                            <label
+                                for="exampleFormControlInput1"
+                                class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                                >Full Name
+                            </label>
+                        </div>                          
+                        <div class="relative mb-3" data-te-input-wrapper-init>
+                            <input
+                                name="passengerDto[@i].IDCard"
+                                type="text"
+                                class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                                id="exampleFormControlInput1"
+                                placeholder="ID Card @i"/>
+                            <label
+                                for="exampleFormControlInput1"
+                                class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                                >ID Card
+                            </label>
+                        </div>
+                        <input type="hidden" name="scheduleId" value="@ViewBag.Schedule.Id">
+                        <input type="hidden" name="numtickets" value="@ViewBag.NumOfTickets"/>
+                    </div>               
+                }
+                <button type="submit" class="text-white bg-fuchsia-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+            </form>            
+        </div>
+        <div class="col-span-2 p-2">
+            @for(int i =0; i< ViewBag.NumOfTickets; i++){
+                <div class="w-full border-2 mb-2 rounded p-1 grid grid-rows-3">
+                    <p class="p-1">@(ViewBag.PassengerInfomation != null ? ViewBag.PassengerInfomation.ToArray()[i].FullName : "Enter FullName") - @(ViewBag.PassengerInfomation != null ? ViewBag.PassengerInfomation.ToArray()[i].IdCard : "Enter Card Id")</p>
+                    <p class="p-1">@ViewBag.Schedule.Airline.AirlineCompany.Name - @ViewBag.Schedule.Airline.Name</p>
+                    <p class="p-1">@ViewBag.Schedule.FlightTime</p>
+                </div>
+            }
+            @{
+                if(ViewBag.PassengerInfomation != null){
+                    <a  asp-controller="SelectSeats" asp-action="Index"
+                        asp-route-scheduleId="@ViewBag.Schedule.Id"
+                        asp-route-numticket="@ViewBag.NumOfTickets"
+                        class="text-white bg-fuchsia-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Select Seats</a> 
+                }
+            }
+        </div>
+    </div>
+    </div>
+</div>

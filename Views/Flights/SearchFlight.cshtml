@@ -1,0 +1,55 @@
+@model IEnumerable<FlightBooking.Models.Schedule>
+
+<div class="mx-auto w-full px-6 lg:px-8">
+
+    <div class="mx-auto w-2/3 lg:text-center">
+        <div class="grid grid-cols-3 gap-4">           
+            <div class="col-span-2">
+                <p>Chose a flight</p>
+                <div class="boder-solid border-2 p-2 rounded">
+                    @foreach(var schedule in Model.ToList()){
+                        <a asp-action="PassengerInfomation" asp-route-scheduleId="@schedule.Id" asp-route-numtickets="@ViewBag.NumOfTickets" class="grid grid-cols-4 boder-solid border-2 mb-2 rounded flex justify-items-center p-2 hover:bg-gray-200 cursor-pointer">
+                            <p class="">@schedule.Airline.AirlineCompany.Name</p>
+                            <p class="">@schedule.FlightTime</p>
+                            <p class="">@schedule.DepartureTime - @schedule.DestinationTime</p>
+                            <p class="">@schedule.Airline.BasePrice</p>
+                        </a>
+                    }
+                </div>                                                
+            </div>
+            <div class="p-2">
+                <table class="w-full rounded">
+                    <thead>
+                        <tr class="bg-teal-400/70 text-base font-bold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                            <th class="px-4 py-3">
+                                Airline Companies
+                            </th>
+                            <th class="px-4 py-3">
+                                Economy
+                            </th>        
+                            <th class="px-4 py-3">
+                                Bussiness
+                            </th>     
+                        </tr>   
+                    </thead>
+                    <tbody class="bg-white/70">
+                        @foreach (var item in Model.ToList())
+                        {
+                            <tr class="px-4 py-3 text-ms font-semibold border">
+                                <td class="px-4 py-3 text-ms font-semibold border">
+                                    @item.Airline.AirlineCompany.Name
+                                </td>
+                                <td class="px-4 py-3 text-ms font-semibold border">
+                                   @item.Airline.BasePrice
+                                </td>
+                                <td class="px-4 py-3 text-ms font-semibold border">
+                                   @(item.Airline.BasePrice + ViewBag.BusinessPrice) $
+                                </td>
+                            </tr>
+                        }            
+                    </tbody>        
+                </table>                
+            </div>
+        </div>
+    </div>
+</div>

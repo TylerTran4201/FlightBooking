@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj": {}
+    "E:\\WorkSpace\\FlightBooking\\FlightBooking.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj": {
+    "E:\\WorkSpace\\FlightBooking\\FlightBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj",
+        "projectUniqueName": "E:\\WorkSpace\\FlightBooking\\FlightBooking.csproj",
         "projectName": "FlightBooking",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\FlightBooking.csproj",
+        "projectPath": "E:\\WorkSpace\\FlightBooking\\FlightBooking.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\FlightBooking\\FlightBooking\\obj\\",
+        "outputPath": "E:\\WorkSpace\\FlightBooking\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.23.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.12, )"
@@ -65,6 +69,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "PayPal": {
+              "target": "Package",
+              "version": "[1.9.1, )"
             },
             "X.PagedList.Mvc.Core": {
               "target": "Package",

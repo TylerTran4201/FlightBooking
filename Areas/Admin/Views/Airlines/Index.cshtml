@@ -1,69 +1,96 @@
 ﻿@model IEnumerable<FlightBooking.Models.Airline>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Airlines Management";
 }
+<div class="bg-white/70 rounded-full border-none p-3 mb-4 shadow-md">
+   <div class="flex items-center justify-center">
+        <span class="material-symbols-outlined"> person </span>
+        <h3 class="font-semibold font-lg"> Ailrines Management</h3>
+   </div>
+</div>
 
-<h1>Index</h1>
+<!-- Contenedor Principal -->
+<div class="lg:flex gap-4 items-stretch">
+   <!-- Caja Grande -->
+   <div class="bg-white/70 md:p-2 p-6 rounded-lg border border-gray-200 mb-4 lg:mb-0 shadow-md lg:w-[35%]">
+      <div class="flex justify-center items-center space-x-5 h-full">
+         <div>      
+            <h3 class="font-semibold font-lg">Total</h3>
+            <h2 class="text-4xl font-bold mb-3">@Model.ToList().Count() Ailrines</h2>
+                <a asp-action="Create" class="mt-2 border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Create new</a>
+         </div>
+        
+      </div>
+   </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form asp-controller="Airlines" asp-action="Index" method="get">
-    <p>
-        <select name="searchOption">
-            <option value="AirlineName">Name</option>
-            <option value="AirlineCompanyName">Airline Company Name</option>
-        </select>        
-        <input type="text" name="SearchString" />
-        <input type="submit" value="Filter" />
-    </p>
-</form>
+   <!-- Caja Blanca -->
+   <div class="bg-white/70 p-4 rounded-lg xs:mb-4 max-w-full shadow-md lg:w-[65%]">
+    <form asp-controller="Airlines" asp-action="Index" method="get">
+      <!-- Cajas pequeñas -->
+        <div class="flex items-center">                
+                <span class="material-symbols-outlined"> search </span>           
+                <select data-te-select-init name="searchOption">
+                    <option value="AirlineName">Airline</option>
+                    <option value="AirlineCompanyName">Airline Company</option>
+                </select>                
+                <input type="text" placeholder="Search..." name="SearchString" class="ml-3 bg-white/70 focus:outline-none w-full border-solid border-2 rounded py-1 px-1 border-sky-500">
+                <button type="submit" class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Search</button>                   
+        </div>   
+         </form>       
+   </div>
+</div>
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-indigo-100 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
+<!--  -->
+<div class="bg-white/70 rounded-lg p-4 shadow-md mt-4">
+    <table class="w-full rounded">
+        <thead>
+            <tr class="bg-teal-400/70 text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                <th class="px-4 py-3">
                     @Html.DisplayNameFor(model => model.Id)
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th class="px-4 py-3">
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSort"]">@Html.DisplayNameFor(model => model.Name)</a>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AirlineCompanySort"]"> @Html.DisplayNameFor(model => model.AirlineCompany)</a>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    @Html.DisplayNameFor(model => model.Seats)
-                </th>
-                <th scope="col" class="px-6 py-3">
-                </th>
-            </tr>
+                </th>             
+                <th class="px-4 py-3">
+                     <a asp-action="Index" asp-route-sortOrder="@ViewData["AirlineCompanySort"]"> @Html.DisplayNameFor(model => model.AirlineCompany)</a>
+                </th>       
+                <th class="px-4 py-3">
+                     @Html.DisplayNameFor(model => model.BasePrice)
+                </th>        
+                <th class="px-4 py-3">
+                     @Html.DisplayNameFor(model => model.Seats)
+                </th>        
+                <th class="px-4 py-3">
+                    Actions
+                </th>        
         </thead>
-        <tbody>
+        <tbody class="bg-white/70">
             @foreach (var item in Model.ToList())
             {
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <td class="px-6 py-4">
+                <tr class="px-4 py-3 text-ms font-semibold border">
+                    <td class="px-4 py-3 text-ms font-semibold border">
                         @item.Id
                     </td>
-                    <td class="px-6 py-4">
-                        @item.Name
+                    <td class="px-4 py-3 text-ms font-semibold border">
+                       @item.Name
                     </td>
-                    <td class="px-6 py-4">
-                        @item.AirlineCompany.Name
+                    <td class="px-4 py-3 text-ms font-semibold border">
+                       @item.AirlineCompany.Name
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-4 py-3 text-ms font-semibold border">
+                        @item.BasePrice $
+                    </td>                    
+                    <td class="px-4 py-3 text-ms font-semibold border">
                         @item.Seats.Count()
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-4 py-3 text-ms font-semibold border">
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>                        
                     </td>
                 </tr>
-            }
-        </tbody>
+            }            
+        </tbody>        
     </table>
 </div>
-<partial name="_PagedList"/>
+<partial name="_PagedList"></partial>

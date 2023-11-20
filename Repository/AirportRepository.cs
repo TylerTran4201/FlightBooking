@@ -2,7 +2,6 @@ using FlightBooking.Data;
 using FlightBooking.Interface;
 using FlightBooking.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace FlightBooking.Repository
 {

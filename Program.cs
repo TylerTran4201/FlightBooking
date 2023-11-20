@@ -10,7 +10,7 @@ using FlightBooking.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DataContextConnection' not found.");
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<DataContext>(options => {options.UseSqlServer(connectionString); options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);}, ServiceLifetime.Transient);
 //add serviceExtention
 builder.Services.AddIdentityServices(builder.Configuration);
 
@@ -18,6 +18,7 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -33,6 +34,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

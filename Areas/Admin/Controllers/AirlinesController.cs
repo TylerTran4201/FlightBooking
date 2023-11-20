@@ -86,7 +86,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AirlineComanyId")] Airline airline)
+        public async Task<IActionResult> Create([Bind("Id,Name,AirlineComanyId,BasePrice")] Airline airline)
         {
             if (ModelState.IsValid)
             {
@@ -147,7 +147,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AirlineComanyId")] Airline airline)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AirlineComanyId,BasePrice")] Airline airline)
         {
             if (id != airline.Id)
             {

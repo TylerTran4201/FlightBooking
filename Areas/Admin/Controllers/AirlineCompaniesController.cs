@@ -42,22 +42,6 @@ namespace FlightBooking.Areas.Admin.Controllers
             }
             return airlineCompanies;
         }
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.AirlineCompanies == null)
-            {
-                return NotFound();
-            }
-
-            var airlineCompany = await _context.AirlineCompanies
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (airlineCompany == null)
-            {
-                return NotFound();
-            }
-
-            return View(airlineCompany);
-        }
 
         // GET: AirlineCompanies/Create
         public IActionResult Create()
@@ -68,7 +52,7 @@ namespace FlightBooking.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] AirlineCompany airlineCompany)
+        public async Task<IActionResult> Create([Bind("Id,Name")] AirlineCompany airlineCompany, IFormFile file)
         {
             if (ModelState.IsValid)
             {

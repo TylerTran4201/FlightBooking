@@ -79,6 +79,7 @@
     "thenify-all": "^1.6.0",
     "to-regex-range": "^5.0.1",
     "ts-interface-checker": "^0.1.13",
+    "tw-elements": "^1.0.0",
     "util-deprecate": "^1.0.2",
     "wrappy": "^1.0.2",
     "yaml": "^2.3.3"

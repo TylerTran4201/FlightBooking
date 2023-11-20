@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="white">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FlightBooking</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true"/>
+</head>
+
+<body class="bg-gradient-to-r from-indigo-500/50 via-pink-600/50 to-violet-600/50">
+    <nav class="bg-white/70 border-b border-gray-300">
+        <div class="flex justify-between items-center px-9">
+            <!-- Aumenté el padding aquí para añadir espacio en los lados -->
+            <!-- Ícono de Menú -->
+            <button id="menuBtn">
+                <span class="material-symbols-outlined"> menu </span>
+            </button>
+            <!-- Logo -->
+            <div class="m-1 h-full">
+                <a href="/" class=" font-bold text-transparent text-base bg-clip-text bg-gradient-to-r from-indigo-500 via-pink-600 to-violet-600">Flight Booking Admin</a>                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Barra lateral -->
+    <div id="sideNav" class="lg:block hidden bg-white w-64 h-screen fixed rounded-none border-none overflow-y-auto">
+        <partial name="_Sidebar.cshtml"/>
+    </div>
+
+    <div class="lg:ml-64 lg:pl-4 lg:flex lg:flex-col lg:w-75% mt-5 mx-2 text-gray-600">
+        @RenderBody()
+    </div>
+    <!-- Script  -->
+    <script>
+
+        // Agregar lógica para mostrar/ocultar la navegación lateral al hacer clic en el ícono de menú
+        const menuBtn = document.getElementById('menuBtn');
+        const sideNav = document.getElementById('sideNav');
+
+        menuBtn.addEventListener('click', () => {
+            sideNav.classList.toggle('hidden');
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

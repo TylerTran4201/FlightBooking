@@ -1,34 +1,90 @@
 @model IEnumerable<FlightBooking.Models.AppRole>
 
 @{
-    ViewData["Title"] = "SetRoles";
-    var roles = ViewBag.Roles;
-    var currentRoles = ViewBag.CurrentRoles;
+  ViewData["Title"] = "SetRoles";
 }
-
-
 <div class="w-full"></div>
-  <div class="flex flex-col bg-white/50 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <div><h1>@ViewBag.User</h1></div>
-    <div>
-      <form asp-action="SetRoles">
-        <div class="flex flex-col">
+<div class="flex flex-col bg-white/50 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <div class="mb-2">
+    <p class="font-bold text-xl text-indigo-500">@ViewBag.User's roles mananage</p>
+  </div>
+  <div>
+    @{
+      int count =0;
+      bool flag = false;
+      int temp = 0;
+    }
+
+    <form asp-action="SetRoles">
+      @foreach (var role in ViewBag.Roles)
+      {
+        @* <div class="@(count == 2 || count == 0 ? "mt-5 w-full grid grid-cols-2 gap-2" : "")">
+          <div class=" @(flag || temp == 0 ? "mr-1 col-span-2 sm:col-span-1 bg-white" : "")"> *@
+        <div>
           <div>
-            @foreach(var role in roles){
-              <label>
-                <input type="checkbox" name="selectedRolesId" value="@role.Id" @(currentRoles.Contains(role)? "checked": "")/>
-                @role.Name
-              </label>
+            @* @if(count ==2){
+              count = 0;
             }
-          </div>
-          <div>
-            <input type="submit" value="SetRoles" class="btn btn-primary" />
+            @if(flag){
+              flag = false;
+              temp =1;
+            } *@
+            @switch (role.Name)
+            {
+              case "Admin":
+                count++; flag = true;
+                <p class="font-bold text-lg">Base roles</p>
+                break;
+              case "UsersView":
+                count++; flag = true;
+                <p class="font-bold text-lg">User management roles</p>
+                break;
+              case "RolesView":
+                count++; flag = true;
+                <p class="font-bold text-lg">Role management role</p>
+                break;
+              case "AirlineCompaniesView":
+                count++; flag = true;
+                <p class="font-bold text-lg">Airline management roles</p>
+                break;
+              case "AirlinesView":
+                count++; flag = true;
+                <p class="font-bold text-lg">Airline management roles</p>
+                break;
+              case "SeatsView":
+                count++; flag = true;
+                <p class="font-bold text-lg">Seat management Roles</p>
+                break;
+              case "TypeSeatsView":
+                count++; flag = true;
+                <p class="font-bold text-lg">Type seat management roles</p>
+                break;
+              case "SchedulesView":
+                count++; flag = true;
+                <p class="font-bold text-lg">Schedule management role</p>
+                break;
+              case "AirportsView":
+                count++; flag = true;
+                <p class="font-bold text-lg">Airport management role</p>
+                break;
+            }
+            <label><input type="checkbox" name="selectedRolesId" value="@role.Id" @(ViewBag.CurrentRoles.Contains(role.Id)
+              ? "checked" : "") />
+              @role.Name
+            </label>
           </div>
         </div>
-      </form>
-    </div>
-    <div>
-      hello
-    </div>
+
+      }
+
+      <div class="mt-2">
+        <input type="submit" value="SetRoles" class="bg-indigo-500 text-gray-200 py-1 w-full rounded" />
+        <button class="bg-white/70 text-indigo-500 border-indigo-500 rounded py-1 w-full">
+          <a asp-action="Index">Back to List</a>
+        </button>
+
+      </div>
+    </form>
   </div>
+</div>
 </div>

@@ -4,29 +4,32 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>AirlineCompany</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="bg-white/50 w-1/3 mx-auto py-5 shadow-xl rounded">
+    <div class="flex flex-col items-center justify-center px-2">
+        <p class="font-bold text-xl text-gray-800">Edit airline company</p>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="mt-5 w-full">
+                <label asp-for="Name" class="text-sm font-medium leading-none text-gray-800">
+                </label>
+                <input asp-for="Name"
+                    class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2"
+                    autocomplete="Name" aria-required="true" />
+                <span asp-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="mt-5 w-full grid grid-cols-2 gap-2">
+                <div class="mr-1 col-span-2 sm:col-span-1">
+                    <button type="submit" class="bg-indigo-500 text-gray-200 py-1 w-full rounded">Create</button>
+                </div>
+                <div class="mr-1 col-span-2 sm:col-span-1">
+                    <button class="bg-white/70 text-indigo-500 border-indigo-500 rounded py-1 w-full">
+                        <a asp-action="Index">Back to List</a>
+                    </button>
+                    
+                </div>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

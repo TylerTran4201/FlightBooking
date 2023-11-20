@@ -4,6 +4,7 @@ using FlightBooking.Models;
 using FlightBooking.Helpers;
 using FlightBooking.Data;
 using Microsoft.AspNetCore.Identity;
+using FlightBooking.DTOs;
 
 namespace FlightBooking.Areas.Admin.Controllers
 {
@@ -13,10 +14,12 @@ namespace FlightBooking.Areas.Admin.Controllers
         private readonly DataContext _context;
         public readonly RoleManager<AppRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IUserStore<AppUser> _userStore;
 
-        public AccountsController(DataContext context, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
+        public AccountsController(DataContext context, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IUserStore<AppUser> userStore)
         {
             _userManager = userManager;
+            _userStore = userStore;
             _roleManager = roleManager;
             _context = context;
         }
@@ -29,7 +32,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             ViewData["UserNameSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "UserName_desc") ? "UserName_desc" : "UserName_asc";
             ViewData["GenderSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "Gender_desc") ? "Gender_desc" : "Gender_asc";
             ViewData["CreatedSort"] = String.Equals(sortOrder, "Date") || !String.Equals(sortOrder, "Created_desc") ? "Created_desc" : "Created_asc";
-
+            
             if (_context.Users == null)
                 return Problem("Entity set Users is null.");
 
@@ -78,24 +81,25 @@ namespace FlightBooking.Areas.Admin.Controllers
             if (id == null || _context.Users == null)
                 return NotFound();
 
-            var user = await _context.Users.Include(a => a.UserRoles).ThenInclude(s =>s.Role).FirstOrDefaultAsync();
-            ViewBag.User = user.UserName;
+            var user = await _context.Users.Include(a => a.UserRoles).ThenInclude(s => s.Role).Where(a => a.Id == id).FirstOrDefaultAsync();
 
-            var roles = _roleManager.Roles;
+
+            var roles = _roleManager.Roles.ToList();
             if (roles == null)
                 return NotFound();
-
+                
+            ViewBag.User = user.UserName;
             ViewBag.Roles = roles;
             ViewBag.CurrentRoles = GetCurrentRoles(user);
             return View();
         }
 
-        public List<AppRole> GetCurrentRoles(AppUser user)
+        public List<int> GetCurrentRoles(AppUser user)
         {
-            var rolesSelect = new List<AppRole>();
+            var rolesSelect = new List<int>();
             foreach (var item in user.UserRoles)
             {
-                rolesSelect.Add(item.Role);
+                rolesSelect.Add(item.Role.Id);
             }
             return rolesSelect;
         }
@@ -110,7 +114,8 @@ namespace FlightBooking.Areas.Admin.Controllers
             }
             var users = from a in _context.Users select a;
             var user = _context.Users.Find(id);
-            if(selectedRolesId == null){
+            if (selectedRolesId == null)
+            {
                 await RemoveAllRolesAsync(user);
                 return RedirectToAction(nameof(Index));
             }
@@ -139,11 +144,15 @@ namespace FlightBooking.Areas.Admin.Controllers
                 // Get the list of roles the user is currently in
                 var roles = await _userManager.GetRolesAsync(user);
 
+                // Detach the user from the context
+                _context.Entry(user).State = EntityState.Detached;
+
                 // Remove the user from each role
                 foreach (var role in roles)
                 {
                     await _userManager.RemoveFromRoleAsync(user, role);
                 }
+
             }
         }
 
@@ -170,21 +179,34 @@ namespace FlightBooking.Areas.Admin.Controllers
         {
             return View();
         }
-
         // POST: Accounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,DateOfBirth,Gender,Created,LastActive,City,Country,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] AppUser appUser)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,UserName,Gender")] AppUser appUser, string password)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid || password == null)
             {
-                _context.Add(appUser);
-                await _context.SaveChangesAsync();
+                if (await UserExists(appUser.UserName))
+                {
+                    ModelState.AddModelError(string.Empty, "Username is taken");
+                    return View(appUser);
+                }
+
+                appUser.UserName = appUser.UserName.ToLower();
+                appUser.IsAdmin = true;
+                await _userManager.CreateAsync(appUser, password);
+
+
                 return RedirectToAction(nameof(Index));
             }
             return View(appUser);
+        }
+        private async Task<bool> UserExists(string username)
+        {
+            return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
 
         // GET: Accounts/Edit/5
@@ -208,7 +230,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName,DateOfBirth,Gender,Created,LastActive,City,Country,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] AppUser appUser)
+        public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName,Id,DateOfBirth,Gender,City,Country,UserName,Email,PhoneNumber")] AppUser appUser)
         {
             if (id != appUser.Id)
             {
@@ -219,7 +241,22 @@ namespace FlightBooking.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(appUser);
+                    var user = _context.Users.Find(id);
+                    if(user.UserName != appUser.UserName && await UserExists(appUser.UserName)){
+                            ModelState.AddModelError(string.Empty, "Username is taken");
+                            return View(appUser);
+                    }
+
+                    user.FirstName = appUser.FirstName;
+                    user.LastName = appUser.LastName;
+                    user.DateOfBirth = appUser.DateOfBirth;
+                    user.Gender = appUser.Gender;
+                    user.City = appUser.City;
+                    user.Country = appUser.Country;
+                    user.UserName = appUser.UserName;
+                    user.Email = appUser.Email;
+                    user.PhoneNumber = appUser.PhoneNumber;
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

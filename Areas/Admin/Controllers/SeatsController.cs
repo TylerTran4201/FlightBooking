@@ -47,6 +47,8 @@ namespace FlightBooking.Areas.Admin.Controllers
             var seat = await _context.Seats
                 .Include(s => s.Airline)
                 .Include(s => s.TypeSeat)
+                .Include(s => s.Airline)
+                .ThenInclude(a => a.AirlineCompany)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (seat == null)
             {

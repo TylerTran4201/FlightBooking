@@ -22,6 +22,7 @@ namespace FlightBooking.Seed
             var roles = new List<AppRole>{
                 new AppRole{Name = "Admin"},
                 new AppRole{Name = "Member"},
+                
                 new AppRole{Name = "UsersView"},
                 new AppRole{Name = "UsersCreate"},
                 new AppRole{Name = "UsersEdit"},
@@ -112,10 +113,10 @@ namespace FlightBooking.Seed
                 },
                 new TypeSeat{
                     Name = "Economy Seat",
-                    Price = 99.99
+                    Price = 0
                 }
             };
-
+            
             foreach(var typeSeat in typeSeats){
                 _context.TypeSeats.Add(typeSeat);
             }

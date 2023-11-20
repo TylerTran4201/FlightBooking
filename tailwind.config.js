@@ -2,15 +2,14 @@
 module.exports = {
   content: [
     './Pages/**/*.cshtml',
-    './Views/**/*.cshtml'
+    './Views/**/*.cshtml',
+    './Areas/Admin/Views/**/*.cshtml',
+    './Areas/Identity/Pages/Account/**/*.cshtml'
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'worldmap-background': "url('/Assets/worldmap.png')",
-      }
     },
   },
-  plugins: [],
+  plugins: []
 }
 

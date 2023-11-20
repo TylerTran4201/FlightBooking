@@ -4,45 +4,68 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Schedule</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="bg-white/50 w-1/3 mx-auto py-5 shadow-xl rounded">
+    <div class="flex flex-col items-center justify-center px-2">
+        <p class="font-bold text-xl text-gray-800">Create new schedule</p>
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DepartureAirport" class="control-label"></label>
-                <select asp-for="DepartureAirportId" class="form-control" asp-items="ViewBag.DepartureAirport"></select>
+            <div class="mt-5 w-full">
+                <label asp-for="DepartureAirport" class="text-sm font-medium leading-none text-gray-800">
+                </label>
+                <select asp-for="DepartureAirportId" asp-items="ViewBag.DepartureAirport"
+                    class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="DestinationAirport" class="control-label"></label>
-                <select asp-for="DestinationAirportId" class="form-control" asp-items="ViewBag.DestinationAirport"></select>
+            <div class="mt-5 w-full">
+                <label asp-for="DestinationAirport" class="text-sm font-medium leading-none text-gray-800">
+                </label>
+                <select asp-for="DestinationAirportId" asp-items="ViewBag.DestinationAirport"
+                    class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="Airline" class="control-label"></label>
-                <select asp-for="AirlineId" class="form-control" asp-items="ViewBag.Airlines"></select>
+            <div class="mt-5 w-full">
+                <label asp-for="Airline" class="text-sm font-medium leading-none text-gray-800">
+                </label>
+                <select asp-for="AirlineId" asp-items="ViewBag.Airlines"
+                    class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="FlightTime" class="control-label"></label>
-                <input type="text" name="hours" id="hours" class="form-control" />
-                <input type="text" name="minutes" id="minutes" class="form-control" />
+            <div class="mt-5 w-full grid grid-cols-2 gap-1">
+                <div class="mr-1 col-span-2 sm:col-span-1">
+                    <label class="text-sm font-medium leading-none text-gray-800">Hour</label>
+                    <input type="text" name="hours" id="hours"
+                        class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2" />
+                </div>
+                <div class="mr-1 col-span-2 sm:col-span-1">
+                    <label class="text-sm font-medium leading-none text-gray-800">Minute</label>
+                    <input type="text" name="minutes" id="minutes"
+                        class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2" />
+                </div>
                 <span asp-validation-for="FlightTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DepartureTime" class="control-label"></label>
-                <input asp-for="DepartureTime" name="departureTime" id="departureTime" class="form-control"
+            <div class="mt-5 w-full">
+                <label class="text-sm font-medium leading-none text-gray-800" asp-for="DepartureTime">
+                </label>
+                <input asp-for="DepartureTime" name="departureTime" id="departureTime"
+                    class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2" 
                     oninput="CalculateDestinationTime()" />
                 <span asp-validation-for="DepartureTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DestinationTime" class="control-label"></label>
-                <input asp-for="DestinationTime" id="DestinationTime" class="form-control" placeholder="Calculating ..."/>
+            <div class="mt-5 w-full">
+                <label class="text-sm font-medium leading-none text-gray-800" asp-for="DestinationTime">
+                </label>
+                <input asp-for="DestinationTime" id="DestinationTime"
+                    class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2" 
+                    placeholder="Calculating ..." />
                 <span asp-validation-for="DestinationTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="mt-5 w-full grid grid-cols-2 gap-2">
+                <div class="mr-1 col-span-2 sm:col-span-1">
+                    <button type="submit" class="bg-indigo-500 text-gray-200 py-1 w-full rounded">Create</button>
+                </div>
+                <div class="mr-1 col-span-2 sm:col-span-1">
+                    <button class="bg-white/70 text-indigo-500 border-indigo-500 rounded py-1 w-full">
+                        <a asp-action="Index">Back to List</a>
+                    </button>
+
+                </div>
             </div>
         </form>
     </div>
@@ -65,7 +88,7 @@
         var seconds = input3Value.getSeconds();
 
         // Tạo chuỗi với định dạng mà bạn muốn
-        var formattedDate =day + " " + month + " " + year + " " + hours + ":" + minutes + ":" + seconds;
+        var formattedDate = day + " " + month + " " + year + " " + hours + ":" + minutes + ":" + seconds;
         if (!isNaN(input1Value) && !isNaN(input2Value) && input3Value instanceof Date && !isNaN(input3Value)) {
             $.ajax({
                 url: 'CalculateDestinationTime',
@@ -84,11 +107,6 @@
     document.getElementById("minutes").addEventListener("input", CalculateDestinationTime);
     document.getElementById("departureTime").addEventListener("input", CalculateDestinationTime);
 </script>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

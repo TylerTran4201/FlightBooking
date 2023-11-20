@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace FlightBooking.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "SchedulesView")]
     public class SchedulesController : Controller
     {
         private readonly DataContext _context;
@@ -71,12 +70,13 @@ namespace FlightBooking.Areas.Admin.Controllers
             var schedule = await _context.Schedules
                 .Include(s => s.DepartureAirport)
                 .Include(s => s.DestinationAirport)
+                .Include(s => s.Airline)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (schedule == null)
             {
                 return NotFound();
             }
-
+            ViewBag.FlightTime = schedule.FlightTime.Hours + " hours and " + schedule.FlightTime.Minutes + " minutes";
             return View(schedule);
         }
         // GET: Schedules/Create

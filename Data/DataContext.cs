@@ -22,6 +22,9 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
     public DbSet<Airport> Airports { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Bill> Bills { get; set; }
+    public DbSet<PassengerInformation> PassengerInformations { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -87,11 +90,32 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
             .HasForeignKey(e=> e.BookingId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        //User - booking (one to many)
+        builder.Entity<AppUser>()
+            .HasMany(u => u.Bookings)
+            .WithOne(b => b.User)
+            .HasForeignKey(b => b.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+            
+        //Ticket - PassengerInfomation (one to one)
+        builder.Entity<Ticket>()
+            .HasOne(t => t.PassengerInformation)
+            .WithOne(p => p.Ticket)
+            .HasForeignKey<Ticket>(e => e.PassengerInformationId)
+            .IsRequired();
+
         // Airline - Schedule (one to one)
         builder.Entity<Airline>()
             .HasOne(e=> e.Schedule)
             .WithOne(e=> e.Airline)
             .HasForeignKey<Schedule>(e => e.AirlineId)
+            .IsRequired();
+
+        //Order - Booking (one to one)
+        builder.Entity<Bill>()
+            .HasOne(o => o.Booking)
+            .WithOne()
+            .HasForeignKey<Bill>(o => o.BookingId)
             .IsRequired();
 
         builder.ApplyConfiguration(new AppUserConfig());
