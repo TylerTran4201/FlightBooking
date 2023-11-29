@@ -12,7 +12,6 @@ namespace FlightBooking.Models
         public string City { get; set; }
         public string Country { get; set; }
         public bool IsAdmin { get; set; } = false;
-        public Photo Photo { get; set; } = new();
         public ICollection<AppUserRole> UserRoles { get; set; }
         public List<Booking> Bookings { get; set; } = new List<Booking>();
     }

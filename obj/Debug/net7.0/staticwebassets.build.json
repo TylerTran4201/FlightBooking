@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "t2mZ3PKcV1mE3IM1MkWc8HzSSQwhWfNGiL3fukVssPE=",
+  "Hash": "tfQzPCcfOoikLG1UYCHQlVmAzAMbelYY6U6xr3S/318=",
   "Source": "FlightBooking",
   "BasePath": "_content/FlightBooking",
   "Mode": "Default",
@@ -1071,12 +1071,12 @@
       "OriginalItemSpec": "E:\\WorkSpace\\FlightBooking\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\FlightBooking.bundle.scp.css"
     },
     {
-      "Identity": "E:\\WorkSpace\\FlightBooking\\wwwroot\\Assets\\curved6.jpg",
+      "Identity": "E:\\WorkSpace\\FlightBooking\\wwwroot\\Assets\\main-background1.jpg",
       "SourceId": "FlightBooking",
       "SourceType": "Discovered",
       "ContentRoot": "E:\\WorkSpace\\FlightBooking\\wwwroot\\",
       "BasePath": "_content/FlightBooking",
-      "RelativePath": "Assets/curved6.jpg",
+      "RelativePath": "Assets/main-background1.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1085,24 +1085,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Assets\\curved6.jpg"
-    },
-    {
-      "Identity": "E:\\WorkSpace\\FlightBooking\\wwwroot\\Assets\\main-background.jpg",
-      "SourceId": "FlightBooking",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\WorkSpace\\FlightBooking\\wwwroot\\",
-      "BasePath": "_content/FlightBooking",
-      "RelativePath": "Assets/main-background.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Assets\\main-background.jpg"
+      "OriginalItemSpec": "wwwroot\\Assets\\main-background1.jpg"
     },
     {
       "Identity": "E:\\WorkSpace\\FlightBooking\\wwwroot\\Assets\\worldmap.png",

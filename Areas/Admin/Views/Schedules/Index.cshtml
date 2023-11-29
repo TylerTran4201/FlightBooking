@@ -3,94 +3,96 @@
     ViewData["Title"] = "Airlines Management";
 }
 <div class="bg-white/70 rounded-full border-none p-3 mb-4 shadow-md">
-   <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center">
         <span class="material-symbols-outlined"> person </span>
         <h3 class="font-semibold font-lg"> Schedules Management</h3>
-   </div>
+    </div>
 </div>
 
 <!-- Contenedor Principal -->
 <div class="lg:flex gap-4 items-stretch">
-   <!-- Caja Grande -->
-   <div class="bg-white/70 md:p-2 p-6 rounded-lg border border-gray-200 mb-4 lg:mb-0 shadow-md lg:w-[35%]">
-      <div class="flex justify-center items-center space-x-5 h-full">
-         <div>      
-            <h3 class="font-semibold font-lg">Total</h3>
-            <h2 class="text-4xl font-bold mb-3">@Model.ToList().Count() Schedules</h2>
-                <a asp-action="Create" class="mt-2 border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Create new</a>
-         </div>
-        
-      </div>
-   </div>
+    <!-- Caja Grande -->
+    <div class="bg-white/70 md:p-2 p-6 rounded-lg border border-gray-200 mb-4 lg:mb-0 shadow-md lg:w-[35%]">
+        <div class="flex justify-center items-center space-x-5 h-full">
+            <div>
+                <h3 class="font-semibold font-lg">Total</h3>
+                <h2 class="text-4xl font-bold mb-3">@Model.ToList().Count() Schedules</h2>
+                <a asp-action="Create"
+                    class="mt-2 border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Create
+                    new</a>
+            </div>
 
-   <!-- Caja Blanca -->
-   <div class="bg-white/70 p-4 rounded-lg xs:mb-4 max-w-full shadow-md lg:w-[65%]">
-    <form asp-controller="Schedules" asp-action="Index" method="get">
-      <!-- Cajas pequeñas -->
-        <div class="flex items-center">                  
+        </div>
+    </div>
+
+    <!-- Caja Blanca -->
+    <div class="bg-white/70 p-4 rounded-lg xs:mb-4 max-w-full shadow-md lg:w-[65%]">
+        <form asp-controller="Schedules" asp-action="Index" method="get">
+            <!-- Cajas pequeñas -->
+            <div class="flex items-center">
                 <span class="material-symbols-outlined"> search </span>
                 <select data-te-select-init name="searchOption">
                     <option value="AirlineName">Airline Name</option>
                     <option value="DepartureName">Departure Name</option>
                     <option value="DestinationName">Destination Name</option>
-                </select>                           
-                <input type="text" placeholder="Search..." name="SearchString" class="ml-3 bg-white/70 focus:outline-none w-full border-solid border-2 rounded py-1 px-1 border-sky-500">
-                <button type="submit" class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Search</button>                   
-        </div>   
-         </form>       
-   </div>
+                </select>
+                <input type="text" placeholder="Search..." name="SearchString"
+                    class="ml-3 bg-white/70 focus:outline-none w-full border-solid border-2 rounded py-1 px-1 border-sky-500">
+                <button type="submit"
+                    class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">Search</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!--  -->
 <div class="bg-white/70 rounded-lg p-4 shadow-md mt-4">
     <table class="w-full rounded">
         <thead>
-            <tr class="bg-teal-400/70 text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+            <tr
+                class="bg-teal-400/70 text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                 <th class="px-4 py-3">
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AirlineNameSort"]">@Html.DisplayNameFor(model => model.Airline.Name)</a>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AirlineNameSort"]">@Html.DisplayNameFor(model
+                        => model.Airline.Name)</a>
                 </th>
                 <th class="px-4 py-3">
                     Departure - Destination
-                </th>        
+                </th>
                 <th class="px-4 py-3">
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["FlightTimeSort"]">@Html.DisplayNameFor(model => model.FlightTime)</a>
-                </th>        
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["FlightTimeSort"]">@Html.DisplayNameFor(model
+                        => model.FlightTime)</a>
+                </th>
                 <th class="px-4 py-3">
                     Time (Utc)
-                </th>        
+                </th>
                 <th class="px-4 py-3">
                     Actions
-                </th>        
+                </th>
         </thead>
         <tbody class="bg-white/70">
             @foreach (var item in Model.ToList())
             {
                 <tr class="px-4 py-3 text-ms font-semibold border">
                     <td class="px-4 py-3 text-ms font-semibold border">
-                       @item.Airline.Name
+                        @item.Airline.Name
                     </td>
                     <td class="px-4 py-3 text-ms font-semibold border">
-                       @(item.DepartureAirport.name + " - " + item.DestinationAirport.name)
+                        @(item.DepartureAirport.name + " - " + item.DestinationAirport.name)
                     </td>
                     <td class="px-4 py-3 text-ms font-semibold border">
-                       @item.FlightTime
+                        @item.FlightTime
                     </td>
                     <td class="px-4 py-3 text-ms font-semibold border">
-                       @(item.DepartureTime + " - " + item.DestinationTime)
+                        @(item.DepartureTime + " - " + item.DestinationTime)
                     </td>
                     <td class="px-4 py-3 text-ms font-semibold border">
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>                        
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Landing</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                     </td>
                 </tr>
-            }            
-        </tbody>        
+            }
+        </tbody>
     </table>
 </div>
 <partial name="_PagedList"></partial>
-
-
-
-
-

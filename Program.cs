@@ -6,6 +6,8 @@ using FlightBooking.Seed;
 using FlightBooking.Interface;
 using FlightBooking.Repository;
 using FlightBooking.Models;
+using FlightBooking.Helpers;
+using FlightBooking.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSession();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<IPhotoServices, PhotoService>();
 
 var app = builder.Build();
 
@@ -66,7 +70,6 @@ app.UseEndpoints(endpoints =>{
         name: "default",
         pattern: "{controller=Flights}/{action=Index}/{id?}");   
 });
-
 
 app.MapRazorPages();
 

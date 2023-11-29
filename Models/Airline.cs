@@ -13,6 +13,6 @@ namespace FlightBooking.Models
         public Schedule Schedule { get; set; }
         public AirlineCompany AirlineCompany { get; set; } = null;
         public List<Seat> Seats { get; set; } = new List<Seat>();
-        public bool Status { get; set; } = false;
+        public bool Status { get; set; } = false; 
     }
 }

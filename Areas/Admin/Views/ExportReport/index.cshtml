@@ -1,0 +1,279 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Export PDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+ <input type="button" id="create_pdf" value="Generate PDF">  
+<form class="form">
+    <body id="content">
+        <header class="clearfix">
+            <div id="logo">
+                <h1>Flight Booking</h1>
+            </div>
+            <h2 style="text-align: center;">REPORT</h2>
+            <div id="company" class="clearfix" style="margin-right: 20px;">
+                <div>Flight Booking</div>
+                <div>Quang Trung Software Park,<br /> District 12, Ho Chi Minh City</div>
+                <div>(84) 519-0450</div>
+                <div><a>flightbooking@gmail.com</a></div>
+            </div>
+            <div id="project">
+                <div><span>PROJECT</span>Flight booking website</div>
+            </div>
+        </header>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="service">Airline Comapany</th>
+                        <th class="desc">Schedule</th>
+                        <th>Airline</th>
+                        <th>Created</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in @ViewBag.Bills)
+                    {
+                        <tr>
+                            <td class="service">
+                                @item.Booking.Schedule.Airline.AirlineCompany.Name
+                            </td>
+                            <td class="desc">
+                                @item.Booking.Schedule.DepartureAirport.name -
+                                @item.Booking.Schedule.DestinationAirport.name
+                            </td>
+                            <td class="unit">
+                                @item.Booking.Schedule.Airline.Name
+                            </td>
+
+                            <td class="qty">
+                                @item.Created
+                            </td>
+                            <td class="total">
+                                @item.TotalPrice$
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="4">Transaction</td>
+                        <td class="total">@ViewBag.TotalTransaction</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="grand total">GRAND TOTAL</td>
+                        <td class="grand total">$@ViewBag.TotalPrice</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+        <div style="        color: #5D6975;
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        bottom: 0;
+        border-top: 1px solid #C1CED9;
+        padding: 8px 0;
+        text-align: center;">
+            Report was created on a computer and is valid without the signature and seal.
+        </div>
+    </body>
+    </form>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var form = $('.form'),
+            cache_width = form.width(),
+            a4 = [595.28, 841.89]; // for a4 size paper width and height  
+
+        $('#create_pdf').on('click', function () {
+            $('body').scrollTop(0);
+            createPDF();
+        });
+
+        function createPDF() {
+            getCanvas().then(function (canvas) {
+                var
+                    img = canvas.toDataURL("image/png"),
+                    doc = new jsPDF({
+                        unit: 'px',
+                        format: 'a4'
+                    });
+                doc.addImage(img, 'JPEG', 20, 20);
+                doc.save('Bhavdip-html-to-pdf.pdf');
+                form.width(cache_width);
+            });
+        }
+
+        function getCanvas() {
+            form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+            return html2canvas(form, {
+                imageTimeout: 2000,
+                removeContainer: true
+            });
+        }
+    });
+</script>
+
+
+
+
+
+
+
+<style>
+    .gradient-text {
+        background: linear-gradient(to right, #6765EE, #D12D82, #7E39EA);
+        /* Thay đổi mã màu tùy ý */
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    a {
+        color: #5D6975;
+        text-decoration: underline;
+    }
+
+    body {
+        position: relative;
+        width: 21cm;
+        height: 29.7cm;
+        margin: 0 auto;
+        color: #001028;
+        background: #FFFFFF;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        font-family: Arial;
+    }
+
+    header {
+        padding: 10px 0;
+        margin-bottom: 30px;
+    }
+
+    #logo {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #logo img {
+        width: 90px;
+    }
+
+    h1 {
+        border-top: 1px solid #5D6975;
+        border-bottom: 1px solid #5D6975;
+        color: #5D6975;
+        font-size: 2.4em;
+        line-height: 1.4em;
+        font-weight: normal;
+        text-align: center;
+        margin: 0 0 20px 0;
+    }
+
+    #project {
+        float: left;
+    }
+
+    #project span {
+        color: #5D6975;
+        text-align: right;
+        width: 52px;
+        margin-right: 10px;
+        display: inline-block;
+        font-size: 0.8em;
+    }
+
+    #company {
+        float: right;
+        text-align: right;
+    }
+
+    #project div,
+    #company div {
+        white-space: nowrap;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 20px;
+    }
+
+    table tr:nth-child(2n-1) td {
+        background: #F5F5F5;
+    }
+
+    table th,
+    table td {
+        text-align: center;
+    }
+
+    table th {
+        padding: 5px 20px;
+        color: #5D6975;
+        border-bottom: 1px solid #C1CED9;
+        white-space: nowrap;
+        font-weight: normal;
+    }
+
+    table .service,
+    table .desc {
+        text-align: left;
+    }
+
+    table td {
+        padding: 20px;
+        text-align: right;
+    }
+
+    table td.service,
+    table td.desc {
+        vertical-align: top;
+    }
+
+    table td.unit,
+    table td.qty,
+    table td.total {
+        font-size: 1.2em;
+    }
+
+    table td.grand {
+        border-top: 1px solid #5D6975;
+        ;
+    }
+
+    #notices .notice {
+        color: #5D6975;
+        font-size: 1.2em;
+    }
+
+    footer {
+        color: #5D6975;
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        bottom: 0;
+        border-top: 1px solid #C1CED9;
+        padding: 8px 0;
+        text-align: center;
+    }
+</style>

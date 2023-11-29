@@ -551,7 +551,6 @@ E:\WorkSpace\FlightBooking\bin\Debug\net7.0\FlightBooking.pdb
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\Azure.Core.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\Azure.Identity.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\Humanizer.dll
-E:\WorkSpace\FlightBooking\bin\Debug\net7.0\JetBrains.Annotations.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
@@ -627,8 +626,6 @@ E:\WorkSpace\FlightBooking\bin\Debug\net7.0\System.Runtime.Caching.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\System.Security.Permissions.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\System.Windows.Extensions.dll
-E:\WorkSpace\FlightBooking\bin\Debug\net7.0\X.PagedList.dll
-E:\WorkSpace\FlightBooking\bin\Debug\net7.0\X.PagedList.Mvc.Core.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\af\Humanizer.resources.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\ar\Humanizer.resources.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\az\Humanizer.resources.dll
@@ -806,3 +803,4 @@ E:\WorkSpace\FlightBooking\obj\Debug\net7.0\FlightBooking.pdb
 E:\WorkSpace\FlightBooking\obj\Debug\net7.0\FlightBooking.genruntimeconfig.cache
 E:\WorkSpace\FlightBooking\obj\Debug\net7.0\ref\FlightBooking.dll
 E:\WorkSpace\FlightBooking\bin\Debug\net7.0\PayPal.dll
+E:\WorkSpace\FlightBooking\bin\Debug\net7.0\CloudinaryDotNet.dll

@@ -19,7 +19,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Schedules
-
+        [Authorize(Policy = "SchedulesView")]
         public async Task<IActionResult> Index(int? page, string searchString, string sortOrder, string searchOption)
         {
             ViewData["AirlineNameSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "AirlineName_desc") ? "AirlineName_desc": "AirlineName_asc";
@@ -60,6 +60,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }    
 
         // GET: Schedules/Details/5
+        [Authorize(Policy = "SchedulesView")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Schedules == null)
@@ -80,6 +81,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             return View(schedule);
         }
         // GET: Schedules/Create
+        [Authorize(Policy = "SchedulesCreate")]
         public IActionResult Create()
         {
             ViewData["Airlines"] = new SelectList(_context.Airlines.Where(x=> x.Status == false), "Id", "Name");
@@ -90,6 +92,7 @@ namespace FlightBooking.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "SchedulesCreate")]
         public async Task<IActionResult> Create([Bind("Id,DestinationAirportId,DepartureAirportId,DepartureTime,DestinationTime,AirlineId")] Schedule schedule, int hours, int minutes)
         {
             if (ModelState.IsValid)
@@ -114,6 +117,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             return View(schedule);
         }
         // GET: Schedules/Edit/5
+        [Authorize(Policy = "SchedulesEdit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Schedules == null)
@@ -143,6 +147,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "SchedulesEdit")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,DestinationAirportId,DepartureAirportId,DepartureTime,DestinationTime, AirlineId")] Schedule schedule, int hours, int minutes)
         {
             if (id != schedule.Id)
@@ -193,6 +198,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Schedules/Delete/5
+        [Authorize(Policy = "SchedulesDelete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Schedules == null)
@@ -215,6 +221,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // POST: Schedules/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "SchedulesDelete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Schedules == null)
@@ -228,6 +235,12 @@ namespace FlightBooking.Areas.Admin.Controllers
                 airlineOff.Status = false;
                 _context.Airlines.Update(airlineOff);
                 _context.Schedules.Remove(schedule);
+                foreach(var seat in airlineOff.Seats){
+                    if(seat.Status != 0){
+                        seat.Status = 0;
+                        _context.Seats.Update(seat);
+                    }
+                }
             }
 
             await _context.SaveChangesAsync();

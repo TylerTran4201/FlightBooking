@@ -24,6 +24,7 @@ namespace FlightBooking.Extensions
             });
             
             services.AddAuthorization(opt=>{
+                opt.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
                 opt.AddPolicy("Member", policy => policy.RequireRole("Admin","Member"));
 
                 opt.AddPolicy("UsersView", policy => policy.RequireRole("Admin","UsersView"));

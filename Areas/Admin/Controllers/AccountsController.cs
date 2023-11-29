@@ -5,6 +5,7 @@ using FlightBooking.Helpers;
 using FlightBooking.Data;
 using Microsoft.AspNetCore.Identity;
 using FlightBooking.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlightBooking.Areas.Admin.Controllers
 {
@@ -25,6 +26,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Accounts
+        [Authorize(Policy = "UsersView")]
         public async Task<IActionResult> Index(string searchString, int? page, string sortOrder, string searchOption)
         {
             ViewData["IdSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "Id_desc") ? "Id_desc" : "Id_asc";
@@ -76,6 +78,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             }
             return airports;
         }
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> SetRoles(int? id)
         {
             if (id == null || _context.Users == null)
@@ -106,6 +109,7 @@ namespace FlightBooking.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> SetRoles(int id, List<int> selectedRolesId)
         {
             if (id == null || _context.Users == null)
@@ -136,7 +140,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             await _userManager.AddToRolesAsync(user, rolesNeedToAdd);
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Policy = "Admin")]
         public async Task RemoveAllRolesAsync(AppUser user)
         {
             if (user != null)
@@ -157,6 +161,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Accounts/Details/5
+        [Authorize(Policy = "UsersView")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Users == null)
@@ -175,6 +180,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Accounts/Create
+        [Authorize(Policy = "UsersCreate")]
         public IActionResult Create()
         {
             return View();
@@ -185,6 +191,7 @@ namespace FlightBooking.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "UsersCreate")]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,UserName,Gender")] AppUser appUser, string password)
         {
             if (ModelState.IsValid || password == null)
@@ -210,6 +217,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Accounts/Edit/5
+        [Authorize(Policy = "UsersEdit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Users == null)
@@ -230,6 +238,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "UsersEdit")]
         public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName,Id,DateOfBirth,Gender,City,Country,UserName,Email,PhoneNumber")] AppUser appUser)
         {
             if (id != appUser.Id)
@@ -276,6 +285,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Accounts/Delete/5
+        [Authorize(Policy = "UsersDelete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Users == null)
@@ -296,6 +306,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // POST: Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "UsersDelete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Users == null)

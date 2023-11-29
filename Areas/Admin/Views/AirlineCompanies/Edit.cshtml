@@ -10,8 +10,14 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mt-5 w-full">
-                <label asp-for="Name" class="text-sm font-medium leading-none text-gray-800">
-                </label>
+                <div class="mt-5 w-full grid grid-cols-2 gap-2">
+                    <label asp-for="Name" class="text-sm font-medium leading-none text-gray-800 mr-1 col-span-2 sm:col-span-1">
+                    </label>
+                    <div class="h-[30px] w-[30px] rounded-full border shadow-md mr-1 col-span-2 sm:col-span-1">
+                        <img src="@ViewBag.Icon"
+                            class="h-full w-full rounded-full" alt="" />
+                    </div>                    
+                </div>
                 <input asp-for="Name"
                     class="bg-gray-100 border rounded text-xs font-medium leading-none text-gray-800 py-2 w-full pl-3 mt-2"
                     autocomplete="Name" aria-required="true" />

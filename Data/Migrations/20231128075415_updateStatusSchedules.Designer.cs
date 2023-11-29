@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightBooking.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231120104619_Init")]
-    partial class Init
+    [Migration("20231128075415_updateStatusSchedules")]
+    partial class updateStatusSchedules
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,13 @@ namespace FlightBooking.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PhotoId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PhotoId")
+                        .IsUnique();
 
                     b.ToTable("AirlineCompanies");
                 });
@@ -210,9 +216,6 @@ namespace FlightBooking.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PhotoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -232,8 +235,6 @@ namespace FlightBooking.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("PhotoId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -334,9 +335,6 @@ namespace FlightBooking.Data.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Photos");
@@ -367,6 +365,9 @@ namespace FlightBooking.Data.Migrations
 
                     b.Property<TimeSpan>("FlightTime")
                         .HasColumnType("time");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -557,11 +558,13 @@ namespace FlightBooking.Data.Migrations
                     b.Navigation("AirlineCompany");
                 });
 
-            modelBuilder.Entity("FlightBooking.Models.AppUser", b =>
+            modelBuilder.Entity("FlightBooking.Models.AirlineCompany", b =>
                 {
                     b.HasOne("FlightBooking.Models.Photo", "Photo")
-                        .WithMany()
-                        .HasForeignKey("PhotoId");
+                        .WithOne()
+                        .HasForeignKey("FlightBooking.Models.AirlineCompany", "PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Photo");
                 });
@@ -666,7 +669,7 @@ namespace FlightBooking.Data.Migrations
                     b.HasOne("FlightBooking.Models.Booking", "Booking")
                         .WithMany("Tickets")
                         .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FlightBooking.Models.PassengerInformation", "PassengerInformation")

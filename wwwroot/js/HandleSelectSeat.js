@@ -1,7 +1,7 @@
 var selectedSeats = [];
 var count = 0;
 
-function toggleSeat(seat, seatName, seatType, scheduleId){
+function toggleSeat(seat, seatName, seatType, scheduleId, numTicket){
     if(seat.classList.contains('bg-red-500')){
         seat.classList.remove('bg-red-500');
         seat.classList.remove('hover:bg-red-800');
@@ -21,7 +21,7 @@ function toggleSeat(seat, seatName, seatType, scheduleId){
         }
     }
     else{
-        if(selectedSeats.length < 2){
+        if(selectedSeats.length < numTicket){
             seat.classList.remove('bg-green-500', 'bg-indigo-500', 'hover:bg-green-800', 'hover:bg-indigo-800');
             seat.classList.add('bg-red-500');
             seat.classList.add('hover:bg-red-800');
@@ -30,16 +30,16 @@ function toggleSeat(seat, seatName, seatType, scheduleId){
             count++;
         }               
         else
-            alert('You can only select up to 2 seats.');
+            alert('You can only select up to '+numTicket+' seats.');
     }
     updateSelectedSeatsInfo();
-    updateFinishButtonLink(scheduleId);
+    updateFinishButtonLink(scheduleId, numTicket);
 }
 function updateSelectedSeatsInfo() {
     var infoElement = document.getElementById('selectedSeatsInfo');
     infoElement.textContent = 'Selected Seats: ' + selectedSeats.join(', ');
 }
-function updateFinishButtonLink(scheduleId) {
+function updateFinishButtonLink(scheduleId, numTicket) {
     var finishButton = document.getElementById('finishButton');
     if (finishButton) {
 
@@ -48,6 +48,6 @@ function updateFinishButtonLink(scheduleId) {
             + '&listSeatSelected=' + encodeURIComponent(selectedSeats.join(','));
 
         // Show/hide the finishButton based on the selected seats count
-        finishButton.style.display = selectedSeats.length === 2 ? 'block' : 'none';
+        finishButton.style.display = selectedSeats.length === numTicket ? 'block' : 'none';
     }
 }

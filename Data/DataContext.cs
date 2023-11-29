@@ -48,6 +48,12 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
              .HasForeignKey(e => e.AirlineComanyId)
              .IsRequired();
 
+        builder.Entity<AirlineCompany>()
+             .HasOne(e => e.Photo)
+             .WithOne()
+             .HasForeignKey<AirlineCompany>(e => e.PhotoId)
+             .IsRequired();
+
         // Seat - Airline (one to many)
         builder.Entity<Seat>()
             .HasOne(e => e.Airline)
@@ -88,7 +94,9 @@ public class DataContext : IdentityDbContext<AppUser, AppRole, int,
             .HasMany(e=> e.Tickets)
             .WithOne(e=> e.Booking)
             .HasForeignKey(e=> e.BookingId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade); 
+
+        //booking - schedule (one to many)
 
         //User - booking (one to many)
         builder.Entity<AppUser>()

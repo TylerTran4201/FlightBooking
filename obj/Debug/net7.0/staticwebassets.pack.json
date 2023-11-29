@@ -5,12 +5,8 @@
       "PackagePath": "staticwebassets\\FlightBooking.bundle.scp.css"
     },
     {
-      "Id": "E:\\WorkSpace\\FlightBooking\\wwwroot\\Assets\\curved6.jpg",
-      "PackagePath": "staticwebassets\\Assets\\curved6.jpg"
-    },
-    {
-      "Id": "E:\\WorkSpace\\FlightBooking\\wwwroot\\Assets\\main-background.jpg",
-      "PackagePath": "staticwebassets\\Assets\\main-background.jpg"
+      "Id": "E:\\WorkSpace\\FlightBooking\\wwwroot\\Assets\\main-background1.jpg",
+      "PackagePath": "staticwebassets\\Assets\\main-background1.jpg"
     },
     {
       "Id": "E:\\WorkSpace\\FlightBooking\\wwwroot\\Assets\\worldmap.png",

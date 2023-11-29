@@ -68,15 +68,11 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.3, )"
             },
             "PayPal": {
               "target": "Package",
               "version": "[1.9.1, )"
-            },
-            "X.PagedList.Mvc.Core": {
-              "target": "Package",
-              "version": "[8.4.7, )"
             }
           },
           "imports": [

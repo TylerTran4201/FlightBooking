@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using FlightBooking.Data;
 using FlightBooking.Models;
 using FlightBooking.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlightBooking.Areas.Admin.Controllers
 {
@@ -17,6 +18,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             _context = context;
         }
         // GET: Airlines
+        [Authorize(Policy = "AirlinesView")]
         public async Task<IActionResult> Index(string searchString, int? page, string sortOrder, string searchOption)
         {
             if (_context.Airlines == null)
@@ -56,6 +58,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }                  
 
         // GET: Airlines/Details/5
+        [Authorize(Policy = "AirlinesView")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Airlines == null)
@@ -75,6 +78,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Airlines/Create
+        [Authorize(Policy = "AirlinesCreate")]
         public IActionResult Create()
         {
             ViewData["AirlineComanyId"] = new SelectList(_context.AirlineCompanies, "Id", "Name");
@@ -86,6 +90,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AirlinesCreate")]
         public async Task<IActionResult> Create([Bind("Id,Name,AirlineComanyId,BasePrice")] Airline airline)
         {
             if (ModelState.IsValid)
@@ -126,6 +131,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Airlines/Edit/5
+        [Authorize(Policy = "AirlinesEdit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Airlines == null)
@@ -147,6 +153,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AirlinesEdit")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AirlineComanyId,BasePrice")] Airline airline)
         {
             if (id != airline.Id)
@@ -179,6 +186,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         }
 
         // GET: Airlines/Delete/5
+        [Authorize(Policy = "AirlinesDelete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Airlines == null)
@@ -200,6 +208,7 @@ namespace FlightBooking.Areas.Admin.Controllers
         // POST: Airlines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AirlinesDelete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Airlines == null)

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using FlightBooking.Data;
 using FlightBooking.Models;
 using FlightBooking.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlightBooking.Areas.Admin.Controllers
 {
@@ -16,6 +17,7 @@ namespace FlightBooking.Areas.Admin.Controllers
             _context = context;
         }
         // GET: Seats
+        [Authorize(Policy = "SeatsView")]
         public async Task<IActionResult> Index(int? page, string sortOrder, string searchString)
         {
             ViewData["AirlineNameSort"] = String.IsNullOrEmpty(sortOrder) || !String.Equals(sortOrder, "AirlineName_desc") ? "AirlineName_desc": "AirlineName_asc";
@@ -36,7 +38,8 @@ namespace FlightBooking.Areas.Admin.Controllers
                 case "AirlineName_asc": airlines = airlines.OrderBy(a => a.Name); break;
             }
             return airlines;
-        }        
+        }      
+        [Authorize(Policy = "SeatsView")]  
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Seats == null)

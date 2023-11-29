@@ -66,86 +66,116 @@ namespace FlightBooking.Controllers
         }
         public async Task<int> AddBooking(int scheduleId, Seat[] seats)
         {
-            var user = await _context.Users.Where(u => u.UserName.CompareTo(_userManager.GetUserName(User)) == 0).FirstOrDefaultAsync();
-            var bookingId = int.Parse(user.Id.ToString() + DateTime.Now.ToString("HHmmss"));
+            var user = await _context.Users
+                .Where(u => u.UserName.CompareTo(_userManager.GetUserName(User)) == 0)
+                .FirstOrDefaultAsync();
+
+            var bookingId = int.Parse($"{user.Id}{DateTime.Now:HHmmss}");
             var booking = new Booking
             {
                 Id = bookingId,
                 UserId = user.Id,
                 ScheduleId = scheduleId
             };
-            _context.Add(booking);
+
+            await _context.AddAsync(booking);
             await _context.SaveChangesAsync();
 
-            int count = 0;
-
             var passengerInfos = GlobalVariables.PassengerInformationDtos.ToArray();
+            var count = 0;
+
             foreach (var item in seats)
             {
-                var passengerInfoId = int.Parse(user.Id.ToString() + DateTime.Now.ToString("HHmmss") + count.ToString());
+                var passengerInfoId = int.Parse($"{user.Id}{DateTime.Now:HHmmss}{count}");
                 var passengerInfo = new PassengerInformation
                 {
                     Id = passengerInfoId,
                     FullName = passengerInfos[count].FullName,
                     IdCard = passengerInfos[count].IdCard
                 };
+
                 var ticket = new Ticket
                 {
-                    SeatId = seats[count].Id,
+                    SeatId = item.Id,
                     BookingId = bookingId,
                     PassengerInformationId = passengerInfo.Id
                 };
+
                 count++;
-                _context.Add(passengerInfo);
-                _context.Add(ticket);
+                await _context.AddAsync(passengerInfo);
+                await _context.AddAsync(ticket);
                 await _context.SaveChangesAsync();
             }
+
             return bookingId;
         }
 
-        public async void AddBill(int bookingId, double totalPrice)
+
+        public async Task AddBill(int bookingId, double totalPrice)
         {
             var order = new Bill
             {
                 BookingId = bookingId,
                 TotalPrice = totalPrice
             };
-            _context.Add(order);
+
+            await _context.AddAsync(order);
             await _context.SaveChangesAsync();
         }
 
-        public async void OffSeat(List<Seat> seats)
+        public async Task OffSeat(List<Seat> seats)
         {
             foreach (var item in seats)
             {
                 item.Status = 1;
                 _context.Update(item);
             }
+
             await _context.SaveChangesAsync();
         }
         //paypal
         private PayPal.Api.Payment payment;
 
-        public async Task<bool> CreateBill(int scheduleId, string seatsSelectedStr, double totalPrice){
-            try {
-                if (scheduleId != 0 && seatsSelectedStr != null && totalPrice != 0)
+        public async Task<bool> CreateBill(int scheduleId, string seatsSelectedStr, double totalPrice)
+        {
+            try
+            {
+                // Improved validation
+                if (scheduleId == 0 || seatsSelectedStr == null || totalPrice == 0)
+                    return false;
+
+                var nameSeats = seatsSelectedStr.Split(',');
+                var schedule = await _context.Schedules
+                    .Include(s => s.Airline)
+                    .ThenInclude(a => a.Seats)
+                    .Where(s => s.Id == scheduleId)
+                    .FirstOrDefaultAsync();
+
+                var seats = nameSeats.Select(item => schedule.Airline.Seats.FirstOrDefault(a => a.Name.Equals(item))).ToList();
+
+                using var transaction = await _context.Database.BeginTransactionAsync();
+
+                try
                 {
-                    var nameSeats = seatsSelectedStr.Split(',');
-                    var schedule = await _context.Schedules.Include(s => s.Airline).ThenInclude(a => a.Seats).Where(s => s.Id == scheduleId).FirstOrDefaultAsync();
-                    var seats = new List<Seat>();
-
-                    foreach (var item in nameSeats)
-                    {
-                        var seat = schedule.Airline.Seats.Where(a => a.Name.Equals(item)).FirstOrDefault();
-                        seats.Add(seat);
-                    }
-
                     var bookingId = await AddBooking(scheduleId, seats.ToArray());
-                    OffSeat(seats);
-                    AddBill(bookingId, totalPrice);
+                    await OffSeat(seats);
+                    await AddBill(bookingId, totalPrice);
+
+                    await transaction.CommitAsync();
+                    return true;
                 }
-                return true;
-            } catch (Exception e) {
+                catch (Exception e)
+                {
+                    // Log the exception
+                    Console.WriteLine(e);
+                    await transaction.RollbackAsync();
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                // Log the exception
+                Console.WriteLine(e);
                 return false;
             }
         }
@@ -157,24 +187,24 @@ namespace FlightBooking.Controllers
             APIContext apiContext = PaypalConfiguration.GetAPIContext(ClientID, ClientSecret, mode);
             try{
                 string payerId = PayerId;
-                if (string.IsNullOrEmpty(payerId)){
+                if (string.IsNullOrEmpty(payerId)) {
                     string baseURI = this.Request.Scheme + "://" + this.Request.Host + "/Payment/PaymentWithPayPal?";
                     var guidd = Convert.ToString((new Random()).Next(100000));
                     guid = guidd;
                     var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid);
                     var links = createdPayment.links.GetEnumerator();
                     string paypalRedirectUrl = null;
-                    while (links.MoveNext()){
+                    while (links.MoveNext()) {
                         Links lnk = links.Current;
                         if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                         {
                             //saving the payapalredirect URL to which user will be redirected for payment  
                             paypalRedirectUrl = lnk.href;
-                        }                                                
+                        }
                     }
                     _httpContext.HttpContext.Session.SetString("payment", createdPayment.id);
                     return Redirect(paypalRedirectUrl);
-                }else{
+                } else {
                     var paymentId = _httpContext.HttpContext.Session.GetString("payment");
                     var executedPayment = ExecutePayment(apiContext, payerId, paymentId as string);
                     if (executedPayment.state.ToLower() != "approved")
@@ -183,10 +213,16 @@ namespace FlightBooking.Controllers
                     }
 
                     // Create Bill
-                    var scheduleId = int.Parse(TempData["ScheduleId"].ToString());
-                    var seatsSelectedStr = TempData["ListSeat"].ToString();
-                    var totalPrice = double.Parse(TempData["TotalPrice"].ToString());
-                    await CreateBill(scheduleId, seatsSelectedStr, totalPrice);
+                    try {
+                        var scheduleId = int.Parse(TempData["ScheduleId"].ToString());
+                        var seatsSelectedStr = TempData["ListSeat"].ToString();
+                        var totalPrice = double.Parse(TempData["TotalPrice"].ToString());
+                        await CreateBill(scheduleId, seatsSelectedStr, totalPrice);
+                    } catch (Exception ex) {
+                        return BadRequest(ex.ToString());
+                    }
+
+
                     return View("PaymentSuccess");
                 }
             }catch (Exception ex)
@@ -256,7 +292,7 @@ namespace FlightBooking.Controllers
                 transactions = transactionList,
                 redirect_urls = redirUrls
             };
-            // Create a payment using a APIContext  
+            // Create a payment using a APIContext
             return this.payment.Create(apiContext);
         }
     }

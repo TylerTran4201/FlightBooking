@@ -20,7 +20,10 @@ namespace FlightBooking.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
             var direct = nameof(Index).ToString().Replace("/Identity","");
-            return RedirectToAction(direct);
+
+
+
+            return RedirectToAction(direct +  "/Account/Login");
         }
     }
 }
