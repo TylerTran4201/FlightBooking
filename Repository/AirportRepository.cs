@@ -18,5 +18,17 @@ namespace FlightBooking.Repository
         {
             return await _context.Airports.ToListAsync();
         }
+        public async Task<IEnumerable<Airport>> DeleteAirport(int id){
+            int test = id;
+            return await _context.Airports.ToListAsync();
+        }
+        public async Task<IEnumerable<Airport>> UpdateAirport(int id){
+            int test = id;
+            return await _context.Airports.ToListAsync();
+        }
+        public async Task<IEnumerable<Airport>> AddAirport(int id){
+            int test = id;
+            return await _context.Airports.ToListAsync();
+        }
     }
 }

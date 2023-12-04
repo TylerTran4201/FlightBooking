@@ -19,7 +19,9 @@ builder.Services.AddIdentityServices(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddSession();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddScoped<IPhotoServices, PhotoService>();
@@ -42,10 +44,10 @@ app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
-// app.UseStatusCodePagesWithRedirects("/Errors/PageNotFound");
+app.UseStatusCodePagesWithRedirects("/Errors/PageNotFound");
 
 //seedData
-using var scope = app.Services.CreateScope();
+using var scope = app.Services.CreateScope(); 
 var services = scope.ServiceProvider;
 try
 {
